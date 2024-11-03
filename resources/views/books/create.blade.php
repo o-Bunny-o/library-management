@@ -5,26 +5,31 @@
 @section('title', 'Ajouter un Livre')
 
 @section('content')
-<h1>Ajouter un Livre</h1>
-
-<form action="{{ route('books.store') }}" method="POST">
-    @csrf
-    
-    <label for="title">Titre:</label>
-    <input type="text" name="title" id="title" required>
-
-    <label for="author">Auteur:</label>
-    <input type="text" name="author" id="author" required>
-
-    <label for="year">Année de publication:</label>
-    <input type="number" name="year" id="year" required>
-
-    <label for="summary">Résumé:</label>
-    <textarea name="summary" id="summary" required></textarea>
-
-    <label for="price">Prix:</label>
-    <input type="number" name="price" id="price" step="0.01" required>
-
-    <button type="submit">Enregistrer</button>
-</form>
+<div class="form-container">
+    <h1>Ajouter un Livre</h1>
+    <form action="{{ route('books.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="title">Titre</label>
+            <input type="text" name="title" id="title" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Auteur</label>
+            <input type="text" name="author" id="author" required>
+        </div>
+        <div class="form-group">
+            <label for="year">Année de publication</label>
+            <input type="number" name="year" id="year" required>
+        </div>
+        <div class="form-group">
+            <label for="summary">Résumé</label>
+            <textarea name="summary" id="summary" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Prix</label>
+            <input type="number" name="price" id="price" step="0.01" required>
+        </div>
+        <button type="submit">Enregistrer</button>
+    </form>
+</div>
 @endsection

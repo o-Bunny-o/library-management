@@ -2,19 +2,29 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title')</title> <!-- title set in child views -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@yield('title')</title>
+    
+    <!-- Link to the custom CSS file -->
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 </head>
 <body>
+    <!-- Header Section with Navigation Links -->
     <header>
-        <!-- nav links -->
         <a href="{{ route('books.index') }}">Accueil</a>
         <a href="{{ route('contact.index') }}">Contacter Nous</a>
         <a href="{{ route('search.index') }}">Chercher</a>
         <a href="{{ route('contact.messages') }}">Messages</a>
     </header>
+
+    <!-- Main Content Area -->
     <main>
-        <!-- content filled by child views -->
         @yield('content')
     </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 Bibliothèque Lafleur | Tous droits réservés</p>
+    </footer>
 </body>
 </html>

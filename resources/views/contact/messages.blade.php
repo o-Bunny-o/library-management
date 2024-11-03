@@ -5,15 +5,17 @@
 @section('title', 'Messages Reçus')
 
 @section('content')
-<h1>Messages Reçus</h1>
-
-@foreach($messages as $message)
-    <div>
-        <p><b>Nom:</b> {{ $message['name'] }}</p>
-        <p><b>Email:</b> {{ $message['email'] }}</p>
-        <p><b>Sujet:</b> {{ $message['subject'] }}</p>
-        <p><b>Message:</b> {{ $message['message'] }}</p>
-        <p><b>Reçu le:</b> {{ $message['created_at'] }}</p>
-    </div>
-@endforeach
+<div class="form-container">
+    <h1>Messages Reçus</h1>
+    @foreach($messages as $message)
+        <div class="message">
+            <p><strong>Nom:</strong> {{ $message['name'] }}</p>
+            <p><strong>Email:</strong> {{ $message['email'] }}</p>
+            <p><strong>Sujet:</strong> {{ $message['subject'] }}</p>
+            <p><strong>Message:</strong> {{ $message['message'] }}</p>
+            <p><strong>Reçu le:</strong> {{ $message['created_at'] }}</p>
+            <hr>
+        </div>
+    @endforeach
+</div>
 @endsection
