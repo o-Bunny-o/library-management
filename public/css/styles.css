@@ -12,7 +12,7 @@
 /* gral */
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family:'Gill Sans', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     margin: 0;
@@ -92,8 +92,8 @@ p {
     background-color: var(--bg-color);
     padding: 20px;
     margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
+    max-width: 800px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, .1);
     border-radius: 8px;
 }
@@ -131,8 +131,9 @@ p {
     border-radius: 5px;
     background-color: var(--input-bg);
     color: var(--text-color);
-    font-family: 'Arial', sans-serif;
+    font-family:'Gill Sans', sans-serif;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-container input[type="text"]:focus,
@@ -152,7 +153,7 @@ p {
     color: #fff;
     border: none;
     border-radius: 5px;
-    font-family: 'Arial', sans-serif;
+    font-family:'Gill Sans', sans-serif;
     font-size: 1em;
     font-weight: bold;
     cursor: pointer;
