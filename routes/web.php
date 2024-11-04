@@ -14,4 +14,12 @@ Route::get('/books/create', [BookController::class, 'create'])->name('books.crea
 // form submission
 Route::post('/books', [BookController::class, 'store'])->name('books.store');
 
+// book details
+Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+
+// delete book
+Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+
+// new books display
+Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
 
