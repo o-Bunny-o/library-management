@@ -32,4 +32,5 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // messages from contact form
 Route::get('/messages', [ContactController::class, 'showMessages'])->name('contact.messages');
 
-
+// search page & results
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
