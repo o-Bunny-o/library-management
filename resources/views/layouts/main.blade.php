@@ -24,7 +24,7 @@
 
     <!-- Footer Section -->
     <footer>
-        <p>&copy; 2024 Bibliothèque Lafleur | Tous droits réservés</p>
+        <p>&copy; 2024 Bibliothèque Lafleur des livres | Tous droits réservés</p>
     </footer>
 </body>
 </html>
