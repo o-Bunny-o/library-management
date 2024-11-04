@@ -23,3 +23,13 @@ Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.de
 // new books display
 Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
 
+// contact form
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+
+// contact submission
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+// messages from contact form
+Route::get('/messages', [ContactController::class, 'showMessages'])->name('contact.messages');
+
+
