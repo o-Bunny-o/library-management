@@ -20,6 +20,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
-
-# But do not ignore the main .env file
 !.env
