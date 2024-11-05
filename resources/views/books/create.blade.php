@@ -1,5 +1,3 @@
-<!-- BOOKS DETAILS -->
-
 @extends('layouts.main')
 
 @section('title', 'Ajouter un Livre')
@@ -22,8 +20,8 @@
             <input type="number" name="year" id="year" required>
         </div>
         <div class="form-group">
-            <label for="summary">Résumé</label>
-            <textarea name="summary" id="summary" required></textarea>
+            <label for="description">Résumé</label> <!-- Changez summary en description -->
+            <textarea name="description" id="description" required></textarea> <!-- Changez summary en description -->
         </div>
         <div class="form-group">
             <label for="price">Prix</label>

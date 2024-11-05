@@ -1,0 +1,26 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Book extends Model
+{
+    use HasFactory;
+
+    
+    public $timestamps = true; //Indique a Laravel que les collones 'create_at' et 'updated_at' doivent être créés et mis à jour lors de l'enregistrement et de la modification de la table.
+
+    //Déclare les champs autorisés pour l'assignation massive ('$fillable' est une propriété de la classe 'Model' elle est utiliser pour proteger les données de l'utilisateur contre les attaques de type injection de code)
+    protected $fillable = [ //Indique à Laravel quels sont les champs autorisés lors de l'enregistrement et de la modification de la table.
+        'title',
+        'author',
+        'year',
+        'genre',
+        'description',
+        'price',
+    ];
+}
+
+//Source :
+//https://kinsta.com/blog/laravel-crud/
