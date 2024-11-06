@@ -46,7 +46,7 @@ class BookController extends Controller
         $book->save();
     
         // Rediriger vers la page des livres
-        return redirect()->route('books.index'); //Rediriger vers la vue 'books.index' qui affiche la liste des livres
+        return redirect()->route('books.index')->with('message', 'Livre ajouté avec succès'); //Rediriger vers la vue 'books.index' qui affiche la liste des livres
     }
     
     // Fonction qui permet d'afficher les détails d'un livre grace à son id
@@ -61,15 +61,18 @@ class BookController extends Controller
     {
         $book = Book::find($id); //Récupérer le livre avec l'id passé en paramètre
         $book->delete(); // Supprimer le livre de la base de données
-        return redirect()->route('books.index'); //Rediriger vers la vue 'books.index' qui affiche la liste des livres
+        return redirect()->route('books.index') -> with('message', 'Livre supprimé avec succès'); //Rediriger vers la vue 'books.index' qui affiche la liste des livres
     }
 
     //fonction pour afficher les nouveaux livres arrivés et ensuite les afficher dans la vue 'books.newArrivals'
-    public function newArrivals()
-    {
-        $books = Book::where('year', '>', date('Y'))->get(); //Récupérer les livres ayant une année supérieure à l'année courante
-        return view('books.newArrivals'); //Redirigerr vers la vue 'books.newArrivals' qui affiche les nouveaux livres arrivés
-    }
+    public function newArrivals() 
+{
+    $currentYear = date('Y'); // Obtenir l'année actuelle
+    $recentBooks = Book::whereYear('created_at', '>=', $currentYear) // Transformer en tableau associatif
+                        ->orderBy('created_at', 'desc')->get(); // Trier par la date de création plus récent au plus ancien + récupérer les livres
+    return view('books.newArrivals', compact('recentBooks')); // Passer les livres à la vue
+}
+
 
 }
 

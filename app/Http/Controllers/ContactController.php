@@ -37,7 +37,7 @@ class ContactController extends Controller
         Message::create($validated);
     
         // Rediriger vers l'index des messages
-        return redirect()->route('contact.index');
+        return redirect()->route('contact.index') -> with('message', 'Message envoyé avec succès !');
     }
     
 

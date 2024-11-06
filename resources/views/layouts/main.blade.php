@@ -15,6 +15,7 @@
         <a href="{{ route('contact.index') }}">Contacter Nous</a>
         <a href="{{ route('search.index') }}">Chercher</a>
         <a href="{{ route('contact.messages') }}">Messages</a>
+        <a href = "{{ route('books.newArrivals') }}">Nouveaux livres</a>
     </header>
 
     <!-- Main Content Area -->

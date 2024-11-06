@@ -14,7 +14,7 @@ class SearchController extends Controller
             ->orWhere('author', 'like', '%' . $query . '%')
             ->orWhere('year', 'like', '%' . $query . '%')
             ->get(); //Récupérer les livres qui contiennent le texte recherché dans le titre, l'auteur ou l'année
-        return view('books.index', compact('books')); //Passer les livres à la vue 'books.index' qui affiche la liste des livres
+        return view('search.index', compact('books')); //Passer les livres à la vue 'books.index' qui affiche la liste des livres
     }
 }
 

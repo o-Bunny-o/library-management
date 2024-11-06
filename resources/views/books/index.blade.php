@@ -25,7 +25,7 @@
         <h2>{{ $book['title'] }}</h2>
         <p>Auteur: {{ $book['author'] }}</p>
         <p>Année: {{ $book['year'] }}</p>
-        <p>Prix: {{ $book['price'] }}</p>
+        <p>Prix: {{ $book['price'] }} $</p>
         <p>Résumé: {{ $book['description'] }}</p>
         <a href="{{ route('books.show', $book['id']) }}">Voir Détails</a>
     </div>
