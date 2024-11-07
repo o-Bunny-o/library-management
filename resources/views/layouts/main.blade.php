@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <title>LA FLEUR DES LIVRES</title>
     
     <!-- Link to the custom CSS file -->
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
@@ -11,12 +14,21 @@
 <body>
     <!-- Header Section with Navigation Links -->
     <header>
-        <a href="{{ route('books.index') }}">Accueil</a>
-        <a href="{{ route('contact.index') }}">Contacter Nous</a>
-        <a href="{{ route('search.index') }}">Chercher</a>
-        <a href="{{ route('contact.messages') }}">Messages</a>
-        <a href = "{{ route('books.newArrivals') }}">Nouveaux livres</a>
-    </header>
+    <a href="{{ route('books.index') }}">ACCUEIL</a>
+    <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
+    
+    <!-- Centered Logo Link -->
+    <a href="/" class="logo-container">
+        <img src="{{ asset('images/center.svg') }}" alt="Logo" class="logo">
+    </a>
+    
+    <a href="{{ route('contact.index') }}">CONTACT</a>
+    <a href="{{ route('contact.messages') }}">MESSAGES</a>
+    <a href="{{ route('search.index') }}" title="Chercher">
+        <i class="fas fa-search"></i>
+    </a>
+</header>
+
 
     <!-- Main Content Area -->
     <main>

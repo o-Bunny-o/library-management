@@ -7,9 +7,9 @@
     <!-- Section d'informations de contact (adresse et description) -->
     <div class="contact-info">
         <h2>Informations de Contact</h2>
-        <p><strong>Bibliothèque de Montréal - La fleur des livres</strong></p>
+        <p><strong>Bibliothèque de Montréal - La Fleur Des Livres</strong></p>
         <p><strong>Adresse :</strong> 345 Boulevard Saint-Laurent, Montréal, QC H2X 2V5, Canada</p>
-        <p><strong>Email :</strong> <a href="mailto:info@bibliotheque-savoirfaire.ca">info@bibliotheque-savoirfaire.ca</a></p>
+        <p><strong>Email :</strong> <a href="mailto:info@lafleurdeslivres.ca">info@lafleurdeslivres.ca</a></p>
         <p><strong>Téléphone :</strong> +1 514-123-4567</p>
         
         <h3>Description :</h3>

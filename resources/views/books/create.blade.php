@@ -20,6 +20,10 @@
             <input type="number" name="year" id="year" required>
         </div>
         <div class="form-group">
+            <label for="category">Genre</label>
+            <input type="text" name="category" id="category" required>
+        </div>
+        <div class="form-group">
             <label for="description">Résumé</label> <!-- Changez summary en description -->
             <textarea name="description" id="description" required></textarea> <!-- Changez summary en description -->
         </div>
