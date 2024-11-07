@@ -1,6 +1,5 @@
 
-<p align="center"![logo](https://github.com/user-attachments/assets/d9436469-31c9-441c-80a6-61a252f8bd9a)
->
+<p align="center"(https://github.com/user-attachments/assets/d9436469-31c9-441c-80a6-61a252f8bd9a)> La Fleur des Livres</p>
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
