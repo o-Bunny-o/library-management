@@ -163,5 +163,6 @@ _Un fichier de sauvegarde SQL est également fourni pour peupler la base de donn
 - [Recherche dans Laravel](https://medium.com/@iqbal.ramadhani55/search-in-laravel-e0e20f329b01)
 - [Laravel CRUD avec les Contrôleurs Ressources](https://medium.com/@santoshbusiness108/simple-laravel-crud-with-resource-controllers-95fb9f7ffab1)
 - [Guide CRUD Laravel](https://kinsta.com/blog/laravel-crud/)
-- [SheCodes](https://www.shecodes.io/](https://www.shecodes.io/athena/3044-making-a-responsive-website-in-css))
+- [SheCodes](https://www.shecodes.io/athena/3044-making-a-responsive-website-in-css#google_vignette)
+
 
