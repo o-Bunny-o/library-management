@@ -14,6 +14,7 @@
     <!-- Résumé complet -->
     <div id="full-summary" class="hidden mt-4 p-4 bg-gray-100 rounded-lg shadow-sm">
         <p><strong>Résumé:</strong> {{ $book['description'] }}</p>
+       <p>Source : <a> https://www.supersummary.com/</a></p>
     </div>
 
     <!-- Bouton pour afficher ou masquer le résumé -->
