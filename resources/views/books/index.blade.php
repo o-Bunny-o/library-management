@@ -31,6 +31,7 @@
         <h2>{{ $book['title'] }}</h2>
         <p>Auteur: {{ $book['author'] }}</p>
         <p>Année: {{ $book['year'] }}</p>
+        <p>Genre: {{ $book['category'] }}</p>
         <p>Prix: {{ $book['price'] }} $</p>
         <p>Résumé: {{ $book['description'] }}</p>
         <form action="{{ route('books.show', $book['id']) }}" method="GET" class="inline">

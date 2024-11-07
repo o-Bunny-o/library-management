@@ -1,4 +1,3 @@
-<!-- SPECIFIC BOOK DETAILS -->
 @extends('layouts.main')
 
 @section('title', 'Détails du Livre')
@@ -9,10 +8,11 @@
     
     <p><strong>Auteur:</strong> {{ $book['author'] }}</p>
     <p><strong>Année:</strong> {{ $book['year'] }}</p>
+    <p><strong>Genre:</strong> {{ $book['category'] }}</p>
     <p><strong>Résumé:</strong> {{ $book['summary'] }}</p>
-    <p><strong>Prix:</strong> {{ $book['price'] }} €</p>
+    <p><strong>Prix:</strong> $ {{ $book['price'] }} <br><br></p>
 
-    <!-- Delete button -->
+    <!-- delete button -->
     <form action="{{ route('books.destroy', $book['id']) }}" method="POST">
         @csrf
         @method('DELETE')

@@ -17,7 +17,12 @@
         </div>
         <div class="form-group">
             <label for="year">Année de publication</label>
-            <input type="number" name="year" id="year" required>
+            <select name="year" id="year" required>
+                <option value="" disabled selected>Choisissez une année</option>
+                @foreach (range(date('Y'), 1900) as $year)
+                    <option value="{{ $year }}">{{ $year }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="form-group">
             <label for="category">Genre</label>

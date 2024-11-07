@@ -3,19 +3,21 @@
 @section('title', 'Contacter Nous')
 
 @section('content')
+
+<h1 class="text-2xl font-bold text-center mb-6">Informations de Contact</h1>
+
 <div class="contact-container">
     <!-- Section d'informations de contact (adresse et description) -->
     <div class="contact-info">
-        <h2>Informations de Contact</h2>
-        <p><strong>Bibliothèque de Montréal - La Fleur Des Livres</strong></p>
+        <p><strong>Bibliothèque de Montréal - La Fleur Des Livres<br><br></strong></p>
         <p><strong>Adresse :</strong> 345 Boulevard Saint-Laurent, Montréal, QC H2X 2V5, Canada</p>
         <p><strong>Email :</strong> <a href="mailto:info@lafleurdeslivres.ca">info@lafleurdeslivres.ca</a></p>
-        <p><strong>Téléphone :</strong> +1 514-123-4567</p>
+        <p><strong>Téléphone :</strong> +1 514-123-4567<br><br></p>
         
-        <h3>Description :</h3>
-        <p>Notre bibliothèque offre une large sélection de livres, de ressources en ligne et d'événements communautaires pour les lecteurs de tous âges. Que vous soyez passionné par la littérature classique, à la recherche de nouvelles connaissances, ou intéressé par nos activités culturelles, nous avons quelque chose pour vous !</p>
+        <p><strong>À propos :<br><br></strong></p>
+        <p>Notre bibliothèque offre une large sélection de livres, de ressources en ligne et d'événements communautaires pour les lecteurs de tous âges. Que vous soyez passionné par la littérature classique, à la recherche de nouvelles connaissances, ou intéressé par nos activités culturelles, nous avons quelque chose pour vous !<br><br></p>
 
-        <h3>Horaires d'ouverture :</h3>
+        <p><strong>Horaires d'ouverture :<br><br></strong></p>
         <ul>
             <li><strong>Lundi à vendredi :</strong> 10h00 - 18h00</li>
             <li><strong>Samedi :</strong> 11h00 - 17h00</li>
@@ -25,7 +27,7 @@
 
     <!-- Formulaire de contact -->
     <div class="form-container">
-        <h1>Formulaire de Contact</h1>
+        <h2>Formulaire de Contact</h1>
         
         <!-- Afficher un message de succès si disponible -->
         @if(session('message'))
