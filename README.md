@@ -3,7 +3,7 @@
   <img src="https://github.com/user-attachments/assets/fc2688e0-7950-4724-ab4a-27ff65225816" alt="logo" width="150"/>
 </p>
 
-# <span style="color:#CE5B61">Rapport de Projet</span>
+# <span style="color:rose">Rapport de Projet</span>
 
 ## Application Web pour la Gestion des Livres d’une Bibliothèque
 
