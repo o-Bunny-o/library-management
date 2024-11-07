@@ -1,59 +1,63 @@
-# Project Report
+# Rapport de Projet
 
-## Web Application for Library Book Management
+## Application Web pour la Gestion des Livres d’une Bibliothèque
 
-**Date:** November 7, 2024  
-**Authors:** Akerlie Lafleur & Pamela Ortiz  
+**Date :** 7 novembre 2024  
+**Auteurs :** Akerlie Lafleur & Pamela Ortiz  
 
 ---
 
-### 1. Introduction
+### Introduction
 
-The project involves creating a web application for library book management. The main goal is to streamline book administration by allowing users to intuitively add, delete, display, and search books. Additionally, the application includes a "New Arrivals" section, which showcases the recently added books. The project was developed using the Laravel framework, with a MySQL database and responsive design provided by Tailwind CSS.
+Ce projet consiste en la création d'une application web pour la gestion des livres d'une bibliothèque. L'objectif principal est de simplifier la gestion des livres en permettant aux utilisateurs d'ajouter, de supprimer, d'afficher et de rechercher des livres de manière intuitive. De plus, l'application inclut une section "Nouveautés" qui présente les livres récemment ajoutés. Le projet a été développé en utilisant le framework Laravel, avec une base de données MySQL et un design réactif via Tailwind CSS.
 
-The need for this project arose in several libraries where manual book management becomes time-consuming and prone to errors. The goal was to simplify this management through a modern and accessible digital solution.
+Le besoin de ce projet s'est manifesté dans de nombreuses bibliothèques où la gestion manuelle des livres devient chronophage et sujette à des erreurs. L'objectif était de simplifier cette gestion avec une solution numérique moderne et accessible.
 
-### 2. Project Architecture
+---
 
-The project follows the MVC (Model-View-Controller) architecture, which enables a clear separation between business logic, presentation, and data management. This structure ensures better code organization and makes the project scalable.
+### Architecture du Projet
 
-- **Model**: Represents the data and interacts directly with the database. In this project, the `Book` and `Message` models handle books and user contact messages, respectively.
-- **View**: Responsible for displaying data. Views in this project are created using Laravel’s Blade template engine and styled with Tailwind CSS for a modern and responsive interface.
-- **Controller**: Links the view and the model, managing data retrieval from the model and passing it to the view. For instance, the `BookController` manages book addition, display, and deletion.
+Le projet suit l'architecture MVC (Modèle-Vue-Contrôleur), qui permet de séparer la logique métier, la présentation et la gestion des données pour une meilleure organisation du code et une évolutivité du projet.
 
-This separation between model, view, and controller has helped maintain clean and organized code, which facilitates future updates.
+- **Modèle** : Représente les données et interagit directement avec la base de données. Dans ce projet, les modèles `Book` et `Message` gèrent respectivement les livres et les messages de contact des utilisateurs.
+- **Vue** : Responsable de l'affichage des données. Les vues dans ce projet sont créées avec le moteur de templates Blade de Laravel et sont stylisées avec Tailwind CSS pour une interface moderne et réactive.
+- **Contrôleur** : Relie la vue et le modèle, gérant la récupération des données du modèle et les transmettant à la vue. Par exemple, le `BookController` gère l'ajout, l'affichage et la suppression des livres.
 
-### 3. Database Setup
+Cette séparation entre le modèle, la vue et le contrôleur a permis de maintenir un code propre et bien organisé, facilitant les futures évolutions de l'application.
 
-A MySQL database was used to store book and message information. The setup process began by creating the `library_management` database via MySQL, followed by configuring Laravel's `.env` file to establish the connection. This allowed Laravel to interact seamlessly with the database.
+---
 
-Migrations were used to create tables in the database—a key feature in Laravel that allows for versioning database changes. Two main tables were created:
+### Mise en Place de la Base de Données
 
-- `books` table to store book information (title, author, genre, etc.).
-- `messages` table to manage messages sent by users via the contact form.
+Une base de données MySQL a été utilisée pour stocker les informations des livres et des messages. La mise en place a commencé par la création de la base de données `library_management` via MySQL, suivie de la configuration du fichier `.env` de Laravel pour établir la connexion. Cette configuration permet à Laravel d'interagir facilement avec la base de données.
 
-This approach ensured a consistent data structure and simplified data handling throughout the project.
+Des migrations ont été utilisées pour créer les tables dans la base de données, une fonctionnalité essentielle de Laravel qui permet de versionner les modifications de la base de données. Deux tables principales ont été créées :
 
-### 4. Feature Development
+- La table `books` pour stocker les informations des livres (titre, auteur, genre, etc.).
+- La table `messages` pour gérer les messages envoyés par les utilisateurs via le formulaire de contact.
 
-The main functionalities were developed using Laravel’s core features, including controllers, views, and models.
+Cette structure a permis de garantir une organisation cohérente des données et de faciliter leur manipulation tout au long du projet.
 
-#### Book Management (CRUD)
+---
 
-One of the project’s core features is book management. The `BookController` was created to manage the following operations:
+### Développement des Fonctionnalités
 
-- **Display Book List**: Lists all books in the database.
-- **Add Book**: A form for adding new books. The controller handles saving the book in the database.
-- **Delete Book**: Each book in the list has a button to delete it from the database.
-- **Search Book**: A search field allows users to filter books by title, author, or genre.
+Les fonctionnalités principales ont été développées en utilisant les fonctionnalités de base de Laravel, notamment les contrôleurs, les vues et les modèles.
 
-The book management logic leverages Laravel's Eloquent ORM, which simplifies database interactions.
+#### Gestion des Livres (CRUD)
 
-#### Displaying New Arrivals
+Une des fonctionnalités principales est la gestion des livres. Le `BookController` a été créé pour gérer les opérations suivantes :
 
-A key aspect of the application is the "New Arrivals" section, highlighting books most recently added to the library. This feature is implemented in the controller using an Eloquent query that filters books added in the current year.
+- **Affichage de la liste des livres** : Cette fonctionnalité permet de lister tous les livres présents dans la base de données.
+- **Ajout d'un livre** : Un formulaire permet l’ajout de nouveaux livres. Le contrôleur gère l'enregistrement de ces livres dans la base de données.
+- **Suppression d'un livre** : Chaque livre affiché dans la liste dispose d'un bouton permettant de le supprimer de la base de données.
+- **Recherche d'un livre** : Un champ de recherche a été ajouté pour filtrer les livres par titre, auteur ou genre.
 
-The `newArrivals` function uses `whereYear` to filter books based on their addition date, showing only those created within the current year. Then, `orderBy` sorts these books by creation date in descending order, so the most recently added books appear first.
+La gestion des livres repose sur l'ORM Eloquent de Laravel, qui simplifie l'interaction avec la base de données.
+
+#### Affichage des Nouveautés
+
+Un aspect clé de l’application est la section "Nouveautés", qui met en avant les livres les plus récemment ajoutés à la bibliothèque. Cette fonctionnalité est implémentée dans le contrôleur grâce à une requête Eloquent filtrant les livres ajoutés au cours de l’année en cours.
 
 ```php
 public function newArrivals() {
@@ -64,33 +68,36 @@ public function newArrivals() {
     return view('books.newArrivals', compact('recentBooks'));
 }
 ```
-
-This query enables sorting by addition date, and the results are sent to a dedicated `books.newArrivals` view for display, allowing users to quickly see the latest library additions.
-
-### Message Management
-The project also includes a contact form for users to send messages. The `MessageController` manages message submissions and stores them in the `messages` table. Messages are then displayed in a dedicated section, enabling administrators to monitor user feedback.
+Cette requête permet de trier les livres par date d’ajout, du plus récent au plus ancien, et les résultats sont envoyés à une vue dédiée `books.newArrivals` pour être affichés, permettant ainsi aux utilisateurs de voir rapidement les derniers ajouts.
 
 ---
 
-## 5. Steps to Start the Project
-To run the application locally, follow these steps:
+### Gestion des Messages
 
-1. **Clone the repository**:
+Le projet inclut également un formulaire de contact pour que les utilisateurs puissent envoyer des messages. Le `MessageController` gère la soumission de ces messages et les stocke dans la table `messages`. Ces messages sont ensuite affichés dans une section dédiée pour permettre aux administrateurs de suivre les retours des utilisateurs.
+
+---
+
+## 5. Étapes pour Démarrer le Projet
+
+Pour exécuter l'application localement, suivez les étapes suivantes :
+
+1. **Cloner le dépôt** :
 
     ```bash
     git clone https://github.com/o-Bunny-o/library-management.git
     ```
 
-2. **Install dependencies**:
+2. **Installer les dépendances** :
 
     ```bash
     cd library-management
     composer install
     ```
 
-3. **Set up the database**:
-    - Create a MySQL database (e.g., `library_management`) on your local or remote server.
-    - Edit the `.env` file at the root of the project to configure the database connection. Example configuration:
+3. **Configurer la base de données** :
+   - Créez une base de données MySQL (par exemple, `library_management`) sur votre serveur local ou distant.
+   - Modifiez le fichier `.env` à la racine du projet pour configurer la connexion à la base de données. Exemple de configuration :
 
     ```env
     DB_CONNECTION=mysql
@@ -101,13 +108,13 @@ To run the application locally, follow these steps:
     DB_PASSWORD=
     ```
 
-4. **Run migrations**:
+4. **Exécuter les migrations** :
 
     ```bash
     php artisan migrate
     ```
 
-5. **Clear configuration and route caches**:
+5. **Vider les caches de configuration et de routes** :
 
     ```bash
     php artisan config:cache
@@ -115,34 +122,39 @@ To run the application locally, follow these steps:
     php artisan view:cache
     ```
 
-6. **Install front-end dependencies and build CSS**:
+6. **Installer les dépendances frontales et construire le CSS** :
 
     ```bash
     npm install
     npm run build
     ```
 
-7. **Start the development server**:
+7. **Lancer le serveur de développement** :
 
     ```bash
     php artisan serve
     ```
 
-    Access the application at `http://localhost:8000`.
+    Accédez à l'application à l'adresse suivante : `http://localhost:8000`.
 
 ---
 
 ## 6. Conclusion
-The library book management project was successfully developed using Laravel, a robust framework that simplifies web application development. The MVC structure facilitated good application organization, and database migrations ensured data consistency. Tailwind CSS provided a modern, responsive UI for a smooth user experience.
 
-The implemented features, such as adding, deleting, searching, and displaying new arrivals, meet the essential needs of a modern library. The project is scalable and can be improved by adding new features, such as updating book information or user authentication.
+Le projet de gestion des livres d'une bibliothèque a été réalisé avec succès en utilisant Laravel, un framework puissant qui facilite le développement rapide d'applications web. L’architecture MVC a permis une bonne organisation de l’application, et les migrations ont assuré une structure cohérente des données. Grâce à Tailwind CSS, l’interface utilisateur est moderne et réactive, offrant une expérience fluide et agréable.
 
-In summary, this project forms a solid base for a library management application with ample potential for further development.
+Les fonctionnalités implémentées, telles que l’ajout, la suppression, la recherche et l’affichage des nouveautés, répondent aux besoins essentiels d'une bibliothèque moderne. Le projet est évolutif et peut être amélioré en ajoutant de nouvelles fonctionnalités, comme la mise à jour des informations des livres ou l’authentification des utilisateurs.
+
+En résumé, ce projet constitue une base solide pour une application de gestion de bibliothèque et offre de nombreuses possibilités d'extension et d'amélioration.
+
+**De plus, le code est annoté, ce qui vous aidera davantage à comprendre les différentes parties du code que nous avons utilisées.  
+**Un fichier de sauvegarde SQL est également fourni pour peupler la base de données.**
 
 ---
 
 ### Sources
 
-- [Search in Laravel](https://medium.com/@iqbal.ramadhani55/search-in-laravel-e0e20f329b01)
-- [Laravel CRUD with Resource Controllers](https://medium.com/@santoshbusiness108/simple-laravel-crud-with-resource-controllers-95fb9f7ffab1)
-- [Laravel CRUD Guide](https://kinsta.com/blog/laravel-crud/)
+- [Recherche dans Laravel](https://medium.com/@iqbal.ramadhani55/search-in-laravel-e0e20f329b01)
+- [Laravel CRUD avec les Contrôleurs Ressources](https://medium.com/@santoshbusiness108/simple-laravel-crud-with-resource-controllers-95fb9f7ffab1)
+- [Guide CRUD Laravel](https://kinsta.com/blog/laravel-crud/)
+
