@@ -1,5 +1,7 @@
 
-![logo](https://github.com/user-attachments/assets/fc2688e0-7950-4724-ab4a-27ff65225816)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fc2688e0-7950-4724-ab4a-27ff65225816" alt="logo" width="150"/>
+</p>
 
 # Rapport de Projet
 
