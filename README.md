@@ -1,65 +1,147 @@
+# Project Report
 
-<p align="center"(https://github.com/user-attachments/assets/d9436469-31c9-441c-80a6-61a252f8bd9a)> La Fleur des Livres</p>
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Web Application for Library Book Management
 
-## About Laravel
+**Date:** November 7, 2024  
+**Authors:** Akerlie Lafleur & Pamela Ortiz  
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### 1. Introduction
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+The project involves creating a web application for library book management. The main goal is to streamline book administration by allowing users to intuitively add, delete, display, and search books. Additionally, the application includes a "New Arrivals" section, which showcases the recently added books. The project was developed using the Laravel framework, with a MySQL database and responsive design provided by Tailwind CSS.
 
-## Learning Laravel
+The need for this project arose in several libraries where manual book management becomes time-consuming and prone to errors. The goal was to simplify this management through a modern and accessible digital solution.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Project Architecture
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+The project follows the MVC (Model-View-Controller) architecture, which enables a clear separation between business logic, presentation, and data management. This structure ensures better code organization and makes the project scalable.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Model**: Represents the data and interacts directly with the database. In this project, the `Book` and `Message` models handle books and user contact messages, respectively.
+- **View**: Responsible for displaying data. Views in this project are created using Laravel’s Blade template engine and styled with Tailwind CSS for a modern and responsive interface.
+- **Controller**: Links the view and the model, managing data retrieval from the model and passing it to the view. For instance, the `BookController` manages book addition, display, and deletion.
 
-## Laravel Sponsors
+This separation between model, view, and controller has helped maintain clean and organized code, which facilitates future updates.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 3. Database Setup
 
-### Premium Partners
+A MySQL database was used to store book and message information. The setup process began by creating the `library_management` database via MySQL, followed by configuring Laravel's `.env` file to establish the connection. This allowed Laravel to interact seamlessly with the database.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Migrations were used to create tables in the database—a key feature in Laravel that allows for versioning database changes. Two main tables were created:
 
-## Contributing
+- `books` table to store book information (title, author, genre, etc.).
+- `messages` table to manage messages sent by users via the contact form.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+This approach ensured a consistent data structure and simplified data handling throughout the project.
 
-## Code of Conduct
+### 4. Feature Development
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+The main functionalities were developed using Laravel’s core features, including controllers, views, and models.
 
-## Security Vulnerabilities
+#### Book Management (CRUD)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+One of the project’s core features is book management. The `BookController` was created to manage the following operations:
 
-## License
+- **Display Book List**: Lists all books in the database.
+- **Add Book**: A form for adding new books. The controller handles saving the book in the database.
+- **Delete Book**: Each book in the list has a button to delete it from the database.
+- **Search Book**: A search field allows users to filter books by title, author, or genre.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The book management logic leverages Laravel's Eloquent ORM, which simplifies database interactions.
+
+#### Displaying New Arrivals
+
+A key aspect of the application is the "New Arrivals" section, highlighting books most recently added to the library. This feature is implemented in the controller using an Eloquent query that filters books added in the current year.
+
+The `newArrivals` function uses `whereYear` to filter books based on their addition date, showing only those created within the current year. Then, `orderBy` sorts these books by creation date in descending order, so the most recently added books appear first.
+
+```php
+public function newArrivals() {
+    $currentYear = date('Y');
+    $recentBooks = Book::whereYear('created_at', '>=', $currentYear)
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+    return view('books.newArrivals', compact('recentBooks'));
+}
+
+This query enables sorting by addition date, and the results are sent to a dedicated `books.newArrivals` view for display, allowing users to quickly see the latest library additions.
+
+### Message Management
+The project also includes a contact form for users to send messages. The `MessageController` manages message submissions and stores them in the `messages` table. Messages are then displayed in a dedicated section, enabling administrators to monitor user feedback.
+
+---
+
+## 5. Steps to Start the Project
+To run the application locally, follow these steps:
+
+1. **Clone the repository**:
+
+    ```bash
+    git clone https://github.com/o-Bunny-o/library-management.git
+    ```
+
+2. **Install dependencies**:
+
+    ```bash
+    cd library-management
+    composer install
+    ```
+
+3. **Set up the database**:
+    - Create a MySQL database (e.g., `library_management`) on your local or remote server.
+    - Edit the `.env` file at the root of the project to configure the database connection. Example configuration:
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=library_management
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+
+4. **Run migrations**:
+
+    ```bash
+    php artisan migrate
+    ```
+
+5. **Clear configuration and route caches**:
+
+    ```bash
+    php artisan config:cache
+    php artisan route:cache
+    php artisan view:cache
+    ```
+
+6. **Install front-end dependencies and build CSS**:
+
+    ```bash
+    npm install
+    npm run build
+    ```
+
+7. **Start the development server**:
+
+    ```bash
+    php artisan serve
+    ```
+
+    Access the application at `http://localhost:8000`.
+
+---
+
+## 6. Conclusion
+The library book management project was successfully developed using Laravel, a robust framework that simplifies web application development. The MVC structure facilitated good application organization, and database migrations ensured data consistency. Tailwind CSS provided a modern, responsive UI for a smooth user experience.
+
+The implemented features, such as adding, deleting, searching, and displaying new arrivals, meet the essential needs of a modern library. The project is scalable and can be improved by adding new features, such as updating book information or user authentication.
+
+In summary, this project forms a solid base for a library management application with ample potential for further development.
+
+---
+
+### Sources
+
+- [Search in Laravel](https://medium.com/@iqbal.ramadhani55/search-in-laravel-e0e20f329b01)
+- [Laravel CRUD with Resource Controllers](https://medium.com/@santoshbusiness108/simple-laravel-crud-with-resource-controllers-95fb9f7ffab1)
+- [Laravel CRUD Guide](https://kinsta.com/blog/laravel-crud/)
