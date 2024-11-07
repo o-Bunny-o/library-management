@@ -5,8 +5,9 @@
 @section('title', 'Messages Reçus')
 
 @section('content')
-<div class="form-container">
-    <h1>Messages Reçus</h1>
+    <h1 class="text-2xl font-bold text-center mb-6">Messages Reçus</h1>
+    <div class="form-container">
+
     @foreach($messages as $message)
         <div class="message">
             <p><strong>Nom:</strong> {{ $message['name'] }}</p>

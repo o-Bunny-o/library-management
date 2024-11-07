@@ -7,18 +7,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <title>LA FLEUR DES LIVRES</title>
-    
-    <!-- Link to the custom CSS file -->
-    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+        @vite('resources/css/styles.css')
 </head>
 <body>
-    <!-- Header Section with Navigation Links -->
     <header>
     <div class="header-content">
     <a href="{{ route('books.index') }}">ACCUEIL</a>
     <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
     
-    <!-- Centered Logo Link -->
+    <!-- logo -->
     <a href="/" class="logo-container">
         <img src="{{ asset('images/center.svg') }}" alt="Logo" class="logo">
     </a>

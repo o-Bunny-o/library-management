@@ -3,8 +3,10 @@
 @section('title', 'Recherche de Livres')
 
 @section('content')
+
+<h1 class="text-2xl font-bold text-center mb-6">Rechercher un Livre</h1>
 <div class="form-container">
-    <h1>Rechercher un Livre</h1>
+
     <form action="{{ route('search.index') }}" method="GET">
         <div class="form-group">
             <label for="query">Rechercher par titre, auteur ou année</label>

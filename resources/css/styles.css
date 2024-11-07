@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --bg-color: #f9f9f9; 
     --text-color: #333; 
@@ -9,8 +13,7 @@
     --highlight: #ffe5e0; 
 }
 
-/* gral */
-
+/* General */
 body {
     font-family: 'Gill Sans', sans-serif;
     background-image: url('/images/bg.svg');
@@ -39,7 +42,7 @@ body::before {
 }
 
 a {
-    color: #CE5B61;
+    color: var(--accent-color);
     text-decoration: none;
     transition: all 0.3s ease; 
 }
@@ -49,7 +52,7 @@ a:hover {
     text-decoration: none;
 }
 
-/* header */
+/* Header */
 header {
     display: flex;
     align-items: center;            
@@ -73,10 +76,10 @@ header {
     padding: 0 20px;                   
 }
 
-/* logo */
 .logo-container {
     flex: 1;                        
-    text-align: center;          
+    text-align: center;  
+    margin: 0 100px;        
 }
 
 header img.logo {
@@ -84,14 +87,13 @@ header img.logo {
     max-width: 100%;                
 }
 
-/* nav links */
+/* Nav links */
 .header-content a {
     text-decoration: none;
     font-size: 1em;
-    color: #CE5B61;
+    color: var(--accent-color);
     transition: color 0.3s ease, font-size 0.3s ease;
 }
-
 
 .header-content a:hover {
     color: #fa6f76;
@@ -100,7 +102,7 @@ header img.logo {
 
 .header-content a i {
     font-size: 1em;
-    color: #CE5B61;
+    color: var(--accent-color);
     transition: color 0.3s ease;
 }
 
@@ -112,7 +114,7 @@ header img.logo {
     box-sizing: border-box;
 }
 
-/* main */
+/* Main content */
 main {
     flex-grow: 1;
     padding: 20px;
@@ -121,7 +123,7 @@ main {
     background-color: #fff;
 }
 
-/* footer */
+/* Footer */
 footer {
     background-color: var(--accent-color);
     color: white;
@@ -131,7 +133,7 @@ footer {
     margin-top: auto;
 }
 
-/* forms */
+/* Form container styling */
 .form-container {
     background-color: var(--bg-color);
     padding: 20px;
@@ -181,7 +183,7 @@ footer {
     outline: none;
 }
 
-/* form button */
+/* Form submit button */
 .form-container button[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -199,3 +201,78 @@ footer {
     background-color: var(--button-hover-bg);
 }
 
+.button-with-border {
+    background-color: #fff;
+    color: var(--accent-color); 
+    border: 1px solid var(--accent-color); 
+    padding: 8px 16px; 
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-with-border:hover {
+    background-color: var(--button-hover-bg); 
+    color: white; 
+}
+
+/* Book entry styling */
+.book-entry {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.book-entry h2 {
+    font-size: 1.5em;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.book-entry p {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.book-entry a {
+    color: var(--accent-color);
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.book-entry a:hover {
+    color: #fa6f76;
+}
+
+/* Search form styling */
+.search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.search-form input[type="text"] {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px 0 0 4px;
+    width: 300px;
+    outline: none;
+}
+
+.search-form button {
+    padding: 8px 12px;
+    border: none;
+    background-color: var(--button-bg);
+    color: #fff;
+    border-radius: 0 4px 4px 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: var(--button-hover-bg);
+}
