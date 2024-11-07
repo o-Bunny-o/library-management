@@ -31,9 +31,10 @@
         <h2>{{ $book['title'] }}</h2>
         <p>Auteur: {{ $book['author'] }}</p>
         <p>Année: {{ $book['year'] }}</p>
-        <p>Genre: {{ $book['category'] }}</p>
+        <p>Genre: {{ $book['genre'] }}</p>
         <p>Prix: {{ $book['price'] }} $</p>
-        <p>Résumé: {{ $book['description'] }}</p>
+        <p>Résumé:{{ Str::limit($book['description'], 100) }}</p>
+
         <form action="{{ route('books.show', $book['id']) }}" method="GET" class="inline">
         <button type="submit" class="button-with-border">
         Voir Détails

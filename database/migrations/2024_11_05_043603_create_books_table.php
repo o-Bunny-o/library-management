@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('author');
             $table->year('year');
             $table->string('genre');
-            $table->text('description');
+            $table->mediumText('description');
             $table->decimal('price',8,2);
             $table->timestamps();
         });
