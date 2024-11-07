@@ -63,6 +63,7 @@ public function newArrivals() {
                         ->get();
     return view('books.newArrivals', compact('recentBooks'));
 }
+```
 
 This query enables sorting by addition date, and the results are sent to a dedicated `books.newArrivals` view for display, allowing users to quickly see the latest library additions.
 
