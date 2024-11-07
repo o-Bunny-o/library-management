@@ -14,6 +14,7 @@
 <body>
     <!-- Header Section with Navigation Links -->
     <header>
+    <div class="header-content">
     <a href="{{ route('books.index') }}">ACCUEIL</a>
     <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
     
@@ -27,6 +28,7 @@
     <a href="{{ route('search.index') }}" title="Chercher">
         <i class="fas fa-search"></i>
     </a>
+</div>
 </header>
 
 
