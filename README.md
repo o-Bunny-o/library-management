@@ -151,9 +151,10 @@ Le projet de gestion des livres d'une bibliothèque a été réalisé avec succ�
 Les fonctionnalités implémentées, telles que l’ajout, la suppression, la recherche et l’affichage des nouveautés, répondent aux besoins essentiels d'une bibliothèque moderne. Le projet est évolutif et peut être amélioré en ajoutant de nouvelles fonctionnalités, comme la mise à jour des informations des livres ou l’authentification des utilisateurs.
 
 En résumé, ce projet constitue une base solide pour une application de gestion de bibliothèque et offre de nombreuses possibilités d'extension et d'amélioration.
+---
 
-**De plus, le code est annoté, ce qui vous aidera davantage à comprendre les différentes parties du code que nous avons utilisées.  
-**Un fichier de sauvegarde SQL est également fourni pour peupler la base de données.**
+_De plus, le code est annoté, ce qui vous aidera davantage à comprendre les différentes parties du code que nous avons utilisées._
+_Un fichier de sauvegarde SQL est également fourni pour peupler la base de données._
 
 ---
 
