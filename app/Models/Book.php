@@ -20,7 +20,23 @@ class Book extends Model
         'description',
         'price',
     ];
+    
+    // relationship with category model
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    // relationship with reviews model
+    public function reviews() {
+        return $this->hasMany(Review::Class);
+    }
+
+    // relationship with favorite model
+    public function favorites() {
+        return $this->hasMany(Favorite::Class);
+    }
 }
 
 //Source :
 //https://kinsta.com/blog/laravel-crud/
+//cours du 13 et 14 novembre

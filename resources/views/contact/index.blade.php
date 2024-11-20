@@ -25,11 +25,11 @@
         </ul>
     </div>
 
-    <!-- Formulaire de contact -->
+    <!-- contact form -->
     <div class="form-container">
         <h2>Formulaire de Contact</h1>
         
-        <!-- Afficher un message de succès si disponible -->
+        <!-- ok message if available -->
         @if(session('message'))
             <div class="alert alert-success">
                 {{ session('message') }}
