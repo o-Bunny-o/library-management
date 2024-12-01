@@ -99,6 +99,8 @@ header img.logo {
     transition: color 0.3s ease;
 }
 
+
+
 .nav-links a:hover {
     color: #fa6f76;
 }
@@ -111,6 +113,10 @@ header img.logo {
     border: none;
     cursor: pointer;
     display: none;
+}
+
+.logout-button {
+    color: #fa6f76;
 }
 
 /* mobile nav */

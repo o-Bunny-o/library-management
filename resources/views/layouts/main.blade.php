@@ -37,15 +37,14 @@
 
                     <!-- auth links -->
     @if (Auth::check())
+            <!-- optional link to account/profile -->
+            <a href="{{ route('profile') }}" title="Profile">
+            {{ Auth::user()->name }}
+        </a>
         <!-- user is authenticated -->
         <a href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-button">
             LOGOUT
-        </a>
-
-        <!-- optional link to account/profile -->
-        <a href="{{ route('profile') }}" title="Profile">
-            {{ Auth::user()->name }}
         </a>
 
         <!-- logout form (hidden) -->
@@ -72,13 +71,14 @@
     <!-- auth links -->
 
             @if (Auth::check())
-        <a href="{{ route('logout') }}"
-           onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();">
-            LOGOUT
-        </a>
-        <a href="{{ route('profile') }}" title="Profile">
+            <a href="{{ route('profile') }}" title="Profile">
             {{ Auth::user()->name }}
         </a>
+        <a href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();" class="logout-button">
+            LOGOUT
+        </a>
+
 
         <form id="logout-form-mobile" action="{{ route('logout') }}" method="POST" class="hidden">
             @csrf
