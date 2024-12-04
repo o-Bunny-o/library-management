@@ -21,10 +21,13 @@
 </form>
 
 <!-- +book -->
-<a href="{{ route('books.create') }}" class="text-accent hover:underline mb-6 inline-block font-semibold">
-    Ajouter un livre
-</a>
-
+@auth
+    @if(auth()->user()->isAdmin())
+        <a href="{{ route('books.create') }}" class="text-accent hover:underline mb-6 inline-block font-semibold">
+            Ajouter un livre
+        </a>
+    @endif
+@endauth
 <!-- list -->
 @foreach($books as $book)
     <div class="book-entry">

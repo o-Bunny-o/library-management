@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('genre');
             $table->mediumText('description');
             $table->decimal('price',8,2);
+            $table->integer('stock');
             $table->timestamps();
         });
     }

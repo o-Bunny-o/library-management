@@ -19,6 +19,7 @@ class Book extends Model
         'genre',
         'description',
         'price',
+        
     ];
     
     // relationship with category model
@@ -34,6 +35,11 @@ class Book extends Model
     // relationship with favorite model
     public function favorites() {
         return $this->hasMany(Favorite::Class);
+    }
+
+    // relationship with cart model
+    public function cart() {
+        return $this->hasMany(CartItem::Class);
     }
 }
 
