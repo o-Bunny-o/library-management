@@ -18,8 +18,9 @@
 
             <!-- left nav -->
             <nav class="nav-links hidden lg:flex">
-                <a href="{{ route('books.index') }}">ACCUEIL</a>
-                <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
+                <a href="{{ route('home') }}">ACCUEIL</a>
+                <a href="{{ route('books.index') }}">LIVRES</a>
+                <a href="{{ route('books.newArrivals') }}">NOUVEAUTÉS</a>
             </nav>
 
             <!-- logo -->
@@ -60,8 +61,9 @@
 
             <!-- mobile nav -->
             <nav id="mobileNav" class="mobile-nav hidden">
-                <a href="{{ route('books.index') }}">ACCUEIL</a>
-                <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
+                <a href="{{ route('home') }}">ACCUEIL</a>
+                <a href="{{ route('books.index') }}">LIVRES</a>
+                <a href="{{ route('books.newArrivals') }}">NOUVEAUTÉS</a>
                 <a href="{{ route('contact.index') }}">CONTACT</a>
                 @auth
                     <a href="{{ route('contact.messages') }}">MESSAGES</a>

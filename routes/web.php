@@ -14,11 +14,15 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController; 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
 
 Auth::routes();
 
-// Home page / book list
-Route::get('/', [BookController::class, 'index'])->name('books.index');
+//testing a real home
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+//  book list
+Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
 // Book routes
 Route::middleware(['auth'])->group(function () {
