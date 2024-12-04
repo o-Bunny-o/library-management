@@ -30,7 +30,9 @@
             <!-- right nav -->
             <nav class="nav-links hidden lg:flex">
                 <a href="{{ route('contact.index') }}">CONTACT</a>
-                <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                @auth
+                    <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                @endauth
                 <a href="{{ route('search.index') }}" title="Chercher">
                     <i class="fas fa-search"></i>
                 </a>
@@ -61,7 +63,9 @@
                 <a href="{{ route('books.index') }}">ACCUEIL</a>
                 <a href="{{ route('books.newArrivals') }}">NOUVEAUX LIVRES</a>
                 <a href="{{ route('contact.index') }}">CONTACT</a>
-                <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                @auth
+                    <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                @endauth
                 <a href="{{ route('search.index') }}" title="Chercher">
                     <i class="fas fa-search"></i>
                 </a>
