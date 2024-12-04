@@ -21,7 +21,7 @@ Auth::routes();
 Route::get('/', [BookController::class, 'index'])->name('books.index');
 
 // Book routes
-Route::middleware(['auth' ])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
     Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
