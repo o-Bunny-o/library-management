@@ -15,57 +15,41 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 
-
 Auth::routes();
 
+// Home page / book list
+Route::get('/', [BookController::class, 'index'])->name('books.index');
 
-// home page / book list
-Route::get('/', [BookController::class, 'index'])->name('books.index'); // route nommé books.index
-
-// book routes
-
-    // +book
-    Route::middleware(['auth', 'admin'])->group(function () {
+// Book routes
+Route::middleware(['auth' ])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-      // form submission
-      Route::post('/books', [BookController::class, 'store'])->name('books.store');
-      // delete book
-      Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
-    });
+    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+    Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+});
 
-   
-    // book details
-    Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+// Book details
+Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
 
-   
+// Contact routes
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/messages', [ContactController::class, 'showMessages'])->name('contact.messages');
 
-    // new books display
-    Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
-
-// contact routes
-
-    // contact form
-    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
-
-    // contact submission
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
-
-    // messages from contact form
-    Route::get('/messages', [ContactController::class, 'showMessages'])->name('contact.messages');
-
-// search page & results
+// Search
 Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
-// user routes
+// User routes
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
 
-    //profile route
-    Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+// Admin-specific routes
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [UserController::class, 'adminDashboard'])->name('admin.dashboard');
+    Route::get('/admin/users', [UserController::class, 'manageUsers'])->name('admin.users');
+});
 
-    //updated profile route
-    Route::put('/profile', [UserController::class, 'update'])->name('profile.update');
-
-
-// auth
+// Auth routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -78,12 +62,17 @@ Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkE
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
-//panier routes
-Route::get('/panier', [CartController::class, 'index'])->name('cart.index'); //afficher le panier
-Route::post('/panier', [CartController::class, 'store'])->name('cart.store'); //ajouter un livre au panier
-Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update'); //mettre à jour le panier
-Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy'); //supprimer un livre du panier
+// Cart routes
+Route::get('/panier', [CartController::class, 'index'])->name('cart.index');
+Route::post('/panier', [CartController::class, 'store'])->name('cart.store');
+Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
 
+// Middleware Test
 Route::get('/middleware-test', function () {
     return 'Test Middleware OK';
-})->middleware('admin');
+})->middleware(['auth', 'admin']);
+
+Route::get('/middleware-test', function () {
+    return 'Middleware works!';
+})->middleware(['auth', 'admin']);

@@ -27,7 +27,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . Auth::id(),
             'about' => 'nullable|string',
-            
         ]);
 
         // Récupérer l'utilisateur connecté
@@ -79,5 +78,21 @@ class UserController extends Controller
         // Rediriger avec un message de succès
         return redirect()->route('users.index')->with('message', 'Utilisateur créé avec succès.');
     }
-    
+
+    /**
+     * Admin dashboard.
+     */
+    public function adminDashboard()
+    {
+        return view('admin.dashboard');
+    }
+
+    /**
+     * Gestion des utilisateurs pour les administrateurs.
+     */
+    public function manageUsers()
+    {
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
 }
