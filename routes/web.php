@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\ResetPasswordController; 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CartController;
 
 
 Auth::routes();
@@ -24,7 +25,9 @@ Route::get('/', [BookController::class, 'index'])->name('books.index'); // route
 // book routes
 
     // +book
+    Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+    });
 
     // form submission
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
@@ -33,7 +36,9 @@ Route::get('/', [BookController::class, 'index'])->name('books.index'); // route
     Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 
     // delete book
-    Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+    Route::middleware(['auth', 'admin'])->group(function () {
+        Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
+    });
 
     // new books display
     Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
@@ -73,3 +78,9 @@ Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequest
 Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+
+//panier routes
+Route::get('/panier', [CartController::class, 'index'])->name('cart.index'); //afficher le panier
+Route::post('/panier', [CartController::class, 'store'])->name('cart.store'); //ajouter un livre au panier
+Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update'); //mettre à jour le panier
+Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy'); //supprimer un livre du panier

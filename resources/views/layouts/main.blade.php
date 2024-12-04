@@ -46,6 +46,9 @@
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-button">
             LOGOUT
         </a>
+        <div>
+                <a href="{{ route('cart.index') }}" class="cart-link">Panier</a>
+        </div>
 
         <!-- logout form (hidden) -->
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
@@ -55,9 +58,12 @@
         <!-- user is not authenticated -->
         <a href="{{ route('login') }}">LOGIN</a>
         <a href="{{ route('register') }}">REGISTER</a>
+        <div>
+                <a href="{{ route('cart.index') }}" class="cart-link">Panier</a>
+        </div>
     @endif
             </nav>
-        </div>
+        
 
         <!-- mobile nav -->
         <nav id="mobileNav" class="mobile-nav hidden">

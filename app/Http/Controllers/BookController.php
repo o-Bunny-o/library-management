@@ -21,6 +21,9 @@ class BookController extends Controller
     //fonction pour afficher la page de création d'un livre et ensuite la passer à la vue 'books.create' qui est une vue blade qui affiche le formulaire de création d'un livre
     public function create()
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403, 'Vous n\'êtes pas autorisé à supprimer ce livre.');
+        }
         return view('books.create');
     }
 
@@ -35,6 +38,7 @@ class BookController extends Controller
             'category' => 'required|string|max:255',
             'description' => 'required|string', 
             'price' => 'required|numeric',
+            'stock' => 'required|integer',
         ]);
     
         // Si la validation passe, enregistrer le livre dans la base de données
@@ -44,6 +48,7 @@ class BookController extends Controller
         $book->year = $validated['year'];
         $book->description = $validated['description']; 
         $book->price = $validated['price'];
+        $book->stock = $validated['stock'];
         $book->save();
     
         // Rediriger vers la page des livres
@@ -60,6 +65,9 @@ class BookController extends Controller
     //fonction pour supprimer un livre d'une base de données et ensuite la rediriger vers la page des livres
     public function destroy($id)
     {
+        if (!auth()->user()->isAdmin()) {
+            abort(403, 'Vous n\'êtes pas autorisé à supprimer ce livre.');
+        }
         $book = Book::find($id); //Récupérer le livre avec l'id passé en paramètre
         $book->delete(); // Supprimer le livre de la base de données
         return redirect()->route('books.index') -> with('message', 'Livre supprimé avec succès'); //Rediriger vers la vue 'books.index' qui affiche la liste des livres
