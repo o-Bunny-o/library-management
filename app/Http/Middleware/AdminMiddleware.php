@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -13,15 +14,8 @@ class AdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Vérifie si l'utilisateur est authentifié et a un rôle "admin"
-        if (Auth::check() && Auth::user()->role === 'admin') {
-            return $next($request); // Autorise la requête
-        }
-
-        // Sinon, redirige vers une page d'erreur ou une autre route
-        return redirect('/')->with('error', 'Access denied.');
-    
+        dd('AdminMiddleware chargé');
     }
 }

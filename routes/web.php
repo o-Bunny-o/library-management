@@ -27,18 +27,17 @@ Route::get('/', [BookController::class, 'index'])->name('books.index'); // route
     // +book
     Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+      // form submission
+      Route::post('/books', [BookController::class, 'store'])->name('books.store');
+      // delete book
+      Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
     });
 
-    // form submission
-    Route::post('/books', [BookController::class, 'store'])->name('books.store');
-
+   
     // book details
     Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 
-    // delete book
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
-    });
+   
 
     // new books display
     Route::get('/new-arrivals', [BookController::class, 'newArrivals'])->name('books.newArrivals');
@@ -84,3 +83,7 @@ Route::get('/panier', [CartController::class, 'index'])->name('cart.index'); //a
 Route::post('/panier', [CartController::class, 'store'])->name('cart.store'); //ajouter un livre au panier
 Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update'); //mettre à jour le panier
 Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy'); //supprimer un livre du panier
+
+Route::get('/middleware-test', function () {
+    return 'Test Middleware OK';
+})->middleware('admin');
