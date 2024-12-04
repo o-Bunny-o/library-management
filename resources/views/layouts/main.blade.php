@@ -6,7 +6,7 @@
     <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>LA FLEUR DES LIVRES</title>
-    @vite('resources/css/styles.css')
+    @vite(['resources/css/styles.css', 'resources/js/app.js'])
 </head>
 <body>
     <header>

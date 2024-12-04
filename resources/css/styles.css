@@ -376,3 +376,18 @@ footer {
         display: none;
     }
 }
+
+/* Customize Swiper navigation arrows */
+.swiper-button-next,
+.swiper-button-prev {
+    @apply text-blue-500 hover:text-blue-700;
+}
+
+/* Customize Swiper pagination bullets */
+.swiper-pagination-bullet {
+    @apply bg-gray-300;
+}
+
+.swiper-pagination-bullet-active {
+    @apply bg-blue-500;
+}
