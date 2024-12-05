@@ -242,7 +242,7 @@ footer {
 }
 
 .form-container button[type="submit"]:hover {
-    background-color: var(--button-hover-bg);
+    background-color: #069180;
 }
 
 .button-with-border {

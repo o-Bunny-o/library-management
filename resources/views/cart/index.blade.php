@@ -57,6 +57,7 @@
                         </form>
                     </td>
                 </tr>
+<<<<<<< HEAD
             @endforeach
         </tbody>
     </table>
@@ -65,6 +66,43 @@
     <div>
         <p>Sous-total : {{ number_format($subtotal, 2, ',', ' ') }} $</p>
         <p>Total : {{ number_format($total, 2, ',', ' ') }} $</p>
+=======
+            </thead>
+            <tbody>
+                {{-- Parcourir les articles du panier --}}
+                @foreach($cartItems as $item)
+                    <tr>
+                        <td class="py-2 px-4 border-b">
+                            {{ $item->book->title }}
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">
+                            {{-- Formulaire pour mettre à jour la quantité --}}
+                            <form action="{{ route('cart.update', $item->id) }}" method="POST" class="flex items-center justify-center">
+                                @csrf
+                                @method('PUT')
+                                <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" class="border rounded w-16 text-center">
+                                <button type="submit" class="bg-greeny hover:bg-accent-color text-white font-bold py-1 px-2 rounded ml-2">⟳</button>
+                            </form>
+                        </td>
+                        <td class="py-2 px-4 border-b text-right">
+                            {{ number_format($item->price, 2, ',', ' ') }} $
+                        </td>
+                        <td class="py-2 px-4 border-b text-right">
+                            {{ number_format($item->quantity * $item->price, 2, ',', ' ') }} $
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">
+                            {{-- Formulaire pour supprimer un article --}}
+                            <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">🗑</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+>>>>>>> 410aceae0201ae15ac8872745f2a2160f691e960
     </div>
 
     {{-- Payment Options --}}
