@@ -66,22 +66,34 @@ class PaymentController extends Controller
                     'payer_id' => $request->input('PayerID'),
                     'transactionReference' => $request->input('paymentId'),
                 ])->send();
-
+    
                 $data = $response->getData();
-
+    
                 if (isset($data['state']) && $data['state'] === 'approved') {
-                    return view('payment_success', ['transactionId' => $data['id']]);
+                    // Préparez les détails de la transaction
+                    $transactionDetails = [
+                        'id' => $data['id'],
+                        'payer_email' => $data['payer']['payer_info']['email'],
+                        'items' => $data['transactions'][0]['item_list']['items'] ?? [],
+                        'total' => $data['transactions'][0]['amount']['total'],
+                        'currency' => $data['transactions'][0]['amount']['currency'],
+                    ];
+    
+                    return view('payment_success', [
+                        'transactionDetails' => $transactionDetails,
+                    ]);
                 } else {
                     return back()->withErrors('Paiement non approuvé.');
                 }
             } catch (\Exception $e) {
-                \Log::error('Erreur PayPal (success) : ' . $e->getMessage());
+                \Log::error('Erreur PayPal : ' . $e->getMessage());
                 return back()->withErrors('Erreur PayPal : ' . $e->getMessage());
             }
         } else {
             return back()->withErrors('Paramètres de paiement manquants.');
         }
     }
+    
 
     public function error()
     {
