@@ -10,10 +10,14 @@
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
+<<<<<<< HEAD
         "omnipay/common": "^3.3",
         "omnipay/paypal": "^3.0",
         "paypal/rest-api-sdk-php": "^1.6",
         "php-http/guzzle7-adapter": "^1.1"
+=======
+        "stripe/stripe-php": "^16.3"
+>>>>>>> cd99ddb32ea6a923ec8ba1ad00c2c6f4c15b197f
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

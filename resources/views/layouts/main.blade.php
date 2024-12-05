@@ -8,7 +8,7 @@
     <title>LA FLEUR DES LIVRES</title>
     @vite(['resources/css/styles.css', 'resources/js/app.js'])
 </head>
-<body>
+<body class="bg-page">
     <header>
         <div class="header-content">
             <!-- burger menu - mobile -->
