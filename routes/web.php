@@ -22,14 +22,11 @@ use App\Http\Controllers\Auth\{
     ResetPasswordController
 };
 
-
 // Authentication routes
 Auth::routes();
 
-
-//testing a real home
+// Home routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Book routes
@@ -70,23 +67,10 @@ Route::post('/panier', [CartController::class, 'store'])->name('cart.store');
 Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-<<<<<<< HEAD
-// Payment routes
-Route::get('/pay', [PaymentController::class, 'pay'])->name('payment.pay');
+// Payment routes for PayPal
+Route::get('/pay', [PaymentController::class, 'payWithPayPal'])->name('payment.payWithPayPal');
 Route::get('/payment-success', [PaymentController::class, 'success'])->name('payment.success');
 Route::get('/payment-error', [PaymentController::class, 'error'])->name('payment.error');
-Route::get('/test-paypal', [PaymentController::class, 'test'])->name('paypal.test');
 
-// Middleware testing routes (for debugging or confirmation)
-Route::get('/middleware-test', function () {
-    return 'Test Middleware OK';
-})->middleware(['auth', 'admin']);
-=======
-// stripe
-
-Route::get('/stripe/payment', [StripeController::class, 'showPaymentForm'])->name('stripe.payment');
-Route::post('/stripe/process-payment', [StripeController::class, 'processPayment'])->name('stripe.processPayment');
-
-// orders
-Route::get('/purchase-history', [OrderController::class, 'userPurchaseHistory'])->name('purchase.history')->middleware('auth');
->>>>>>> cd99ddb32ea6a923ec8ba1ad00c2c6f4c15b197f
+// Payment routes for Stripe
+Route::post('/stripe/pay', [PaymentController::class, 'payWithStripe'])->name('payment.payWithStripe');

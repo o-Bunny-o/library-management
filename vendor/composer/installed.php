@@ -3,11 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-<<<<<<< HEAD
-        'reference' => 'c12e8d7a6d30595212e827ba0cfe5b89db4571ee',
-=======
-        'reference' => 'ec5aa770a2cdb83955cbd7b201c414097ee59e86',
->>>>>>> cd99ddb32ea6a923ec8ba1ad00c2c6f4c15b197f
+        'reference' => 'a7fd7858696e4ded8abbb960520df1b078337895',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -410,11 +406,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-<<<<<<< HEAD
-            'reference' => 'c12e8d7a6d30595212e827ba0cfe5b89db4571ee',
-=======
-            'reference' => 'ec5aa770a2cdb83955cbd7b201c414097ee59e86',
->>>>>>> cd99ddb32ea6a923ec8ba1ad00c2c6f4c15b197f
+            'reference' => 'a7fd7858696e4ded8abbb960520df1b078337895',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -672,15 +664,15 @@
         'php-http/async-client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
-                1 => '*',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'php-http/client-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0',
-                1 => '*',
+                0 => '*',
+                1 => '1.0',
             ),
         ),
         'php-http/discovery' => array(

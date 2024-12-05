@@ -25,3 +25,4 @@ yarn-error.log
 !composer.json
 !composer.lock
 
+app/Http/Controllers/StripeController.php

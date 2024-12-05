@@ -3,7 +3,7 @@
 @section('content')
 <h1 class="text-2xl font-bold text-center mx-8 mb-6">Mon panier</h1>
 
-{{-- Messages de succès ou d'erreur --}}
+{{-- Success or Error Messages --}}
 @if(session('success'))
     <div style="color: green;">{{ session('success') }}</div>
 @endif
@@ -16,7 +16,7 @@
     </div>
 @endif
 
-{{-- Vérification si le panier est vide --}}
+{{-- Check if the cart is empty --}}
 @if($cartItems->isEmpty())
     <p>Votre panier est vide.</p>
 @else
@@ -31,27 +31,26 @@
             </tr>
         </thead>
         <tbody>
-            {{-- Parcourir les articles du panier --}}
             @foreach($cartItems as $item)
                 <tr>
                     <td>{{ $item->book->title }}</td>
-                    <td>{{ $item->quantity }}</td>
+                    <td>
+                        {{-- Update Quantity Form --}}
+                        <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('PUT')
+                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" style="width: 50px;">
+                            <button type="submit" class="btn btn-sm btn-primary">Mettre à jour</button>
+                        </form>
+                    </td>
                     <td>{{ number_format($item->price, 2, ',', ' ') }} $</td>
                     <td>{{ number_format($item->quantity * $item->price, 2, ',', ' ') }} $</td>
                     <td>
-                        {{-- Formulaire pour mettre à jour la quantité --}}
-                        <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('PUT')
-                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
-                            <button type="submit">Mettre à jour</button>
-                        </form>
-
-                        {{-- Formulaire pour supprimer un article --}}
-                        <form action="{{ route('cart.destroy', $item->id) }}" method="POST" style="display: inline;">
+                        {{-- Delete Item Form --}}
+                        <form action="{{ route('cart.destroy', $item->id) }}" method="POST" style="display: inline-block;">
                             @csrf
                             @method('DELETE')
-                            <button type="submit">Supprimer</button>
+                            <button type="submit" class="btn btn-sm btn-danger">Supprimer</button>
                         </form>
                     </td>
                 </tr>
@@ -59,13 +58,50 @@
         </tbody>
     </table>
 
-    {{-- Afficher le sous-total et le total --}}
+    {{-- Display subtotal and total --}}
     <div>
         <p>Sous-total : {{ number_format($subtotal, 2, ',', ' ') }} $</p>
         <p>Total : {{ number_format($total, 2, ',', ' ') }} $</p>
     </div>
 
-    {{-- Bouton de paiement avec PayPal --}}
-    <a href="{{ route('payment.pay') }}" class="btn btn-success">Payer avec PayPal</a>
+    {{-- Payment Options --}}
+    <h2>Choisissez votre méthode de paiement :</h2>
+    <a href="{{ route('payment.payWithPayPal') }}" class="btn btn-success">Payer avec PayPal</a>
+
+    <form id="stripe-payment-form" action="{{ route('payment.payWithStripe') }}" method="POST">
+        @csrf
+        <input type="hidden" name="amount" value="{{ $total }}">
+        <input type="hidden" id="stripePaymentMethod" name="stripePaymentMethod">
+        
+        <div id="card-element">
+            <!-- Stripe.js Card Element will be mounted here -->
+        </div>
+        <button type="button" id="stripePayButton" class="btn btn-primary">Payer avec Stripe</button>
+    </form>
 @endif
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+
+    // Mount the card input element
+    cardElement.mount('#card-element');
+
+    // Handle form submission
+    document.getElementById('stripePayButton').addEventListener('click', async function () {
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        });
+
+        if (error) {
+            alert(error.message);
+        } else {
+            document.getElementById('stripePaymentMethod').value = paymentMethod.id;
+            document.getElementById('stripe-payment-form').submit();
+        }
+    });
+</script>
 @endsection

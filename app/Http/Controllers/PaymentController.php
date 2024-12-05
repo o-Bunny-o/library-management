@@ -4,107 +4,98 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Omnipay\Omnipay;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use App\Models\CartItem;
+use App\Models\Book;
+use App\Models\Payment;
 
 class PaymentController extends Controller
 {
-    private $gateway;
+    private $paypalGateway;
 
     public function __construct()
     {
-        $this->gateway = Omnipay::create('PayPal_Rest');
-        $this->gateway->setClientId(env('PAYPAL_CLIENT_ID'));
-        $this->gateway->setSecret(env('PAYPAL_CLIENT_SECRET'));
-        $this->gateway->setTestMode(true); // Passez à false en production
-    }
-
-    public function pay(Request $request)
-    {
-        $items = [];
-        $subtotal = 0;
-
-        // Exemple : Supposons que vous récupérez les articles du panier
-        $cartItems = $this->getCartItems(); // Remplacez cette méthode selon vos besoins
-
-        foreach ($cartItems as $cartItem) {
-            $items[] = [
-                'name' => $cartItem->name,
-                'price' => number_format($cartItem->price, 2, '.', ''),
-                'quantity' => $cartItem->quantity,
-            ];
-            $subtotal += $cartItem->price * $cartItem->quantity;
-        }
-
-        try {
-            // Préparez la requête PayPal
-            $response = $this->gateway->purchase([
-                'amount' => number_format($subtotal, 2, '.', ''),
-                'currency' => env('PAYPAL_CURRENCY', 'USD'),
-                'items' => $items,
-                'returnUrl' => route('payment.success'),
-                'cancelUrl' => route('payment.error'),
-            ])->send();
-
-            if ($response->isRedirect()) {
-                // Redirigez l'utilisateur vers PayPal
-                return $response->redirect();
-            } else {
-                // Gérer les erreurs
-                \Log::error('Erreur PayPal : ' . $response->getMessage());
-                return back()->withErrors('Erreur PayPal : ' . $response->getMessage());
-            }
-        } catch (\Exception $e) {
-            \Log::error('Exception PayPal : ' . $e->getMessage());
-            return back()->withErrors('Erreur PayPal : ' . $e->getMessage());
-        }
+        // Initialisation de PayPal
+        $this->paypalGateway = Omnipay::create('PayPal_Rest');
+        $this->paypalGateway->setClientId(env('PAYPAL_CLIENT_ID'));
+        $this->paypalGateway->setSecret(env('PAYPAL_SECRET'));
+        $this->paypalGateway->setTestMode(true); // TRUE pour Sandbox, FALSE en production
     }
 
     public function success(Request $request)
     {
-        if ($request->input('paymentId') && $request->input('PayerID')) {
-            try {
-                $response = $this->gateway->completePurchase([
-                    'payer_id' => $request->input('PayerID'),
-                    'transactionReference' => $request->input('paymentId'),
-                ])->send();
+        $userId = auth()->id(); // ID de l'utilisateur connecté
+        $cartItems = CartItem::where('user_id', $userId)->get();
     
-                $data = $response->getData();
-    
-                if (isset($data['state']) && $data['state'] === 'approved') {
-                    // Préparez les détails de la transaction
-                    $transactionDetails = [
-                        'id' => $data['id'],
-                        'payer_email' => $data['payer']['payer_info']['email'],
-                        'items' => $data['transactions'][0]['item_list']['items'] ?? [],
-                        'total' => $data['transactions'][0]['amount']['total'],
-                        'currency' => $data['transactions'][0]['amount']['currency'],
-                    ];
-    
-                    return view('payment_success', [
-                        'transactionDetails' => $transactionDetails,
-                    ]);
-                } else {
-                    return back()->withErrors('Paiement non approuvé.');
-                }
-            } catch (\Exception $e) {
-                \Log::error('Erreur PayPal : ' . $e->getMessage());
-                return back()->withErrors('Erreur PayPal : ' . $e->getMessage());
-            }
-        } else {
-            return back()->withErrors('Paramètres de paiement manquants.');
+        if ($cartItems->isEmpty()) {
+            return redirect()->route('cart.index')->withErrors('Votre panier est déjà vide.');
         }
+    
+        // Calcul du montant total
+        $totalAmount = $cartItems->sum(fn ($item) => $item->quantity * $item->price);
+        $currency = env('PAYPAL_CURRENCY', 'USD'); // Devise utilisée
+    
+        // Ajouter l'entrée dans la table `payments`
+        $payment = Payment::create([
+            'payment_id' => $request->input('paymentId') ?? 'stripe_' . uniqid(),
+            'payer_id' => $request->input('PayerID') ?? $userId,
+            'payer_email' => auth()->user()->email ?? null,
+            'amount' => $totalAmount,
+            'currency' => $currency,
+            'payment_status' => 'approved',
+        ]);
+    
+        // Mise à jour du stock des livres
+        foreach ($cartItems as $cartItem) {
+            $book = Book::find($cartItem->book_id);
+            if ($book) {
+                $book->stock -= $cartItem->quantity;
+                $book->save();
+            }
+        }
+    
+        // Vider le panier
+        CartItem::where('user_id', $userId)->delete();
+    
+        // Redirection vers la page de succès
+        return redirect()->route('payment.success')->with('transactionDetails', $payment);
     }
     
 
     public function error()
     {
-        return view('payment_error', ['message' => 'Utilisateur a annulé le paiement.']);
+        return view('payment_error', ['message' => 'Le paiement a été annulé.']);
+    }
+
+    public function payWithStripe(Request $request)
+    {
+        $request->validate(['amount' => 'required|numeric|min:0.01']);
+        
+        try {
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+
+            $cartItems = $this->getCartItems();
+            $totalAmount = intval(round($cartItems->sum(fn ($item) => $item->quantity * $item->price) * 100));
+
+            $paymentIntent = PaymentIntent::create([
+                'amount' => $totalAmount,
+                'currency' => env('STRIPE_CURRENCY', 'usd'),
+                'description' => 'Stripe Payment',
+                'automatic_payment_methods' => ['enabled' => true],
+            ]);
+
+            // Simulation de transaction pour Stripe
+            $this->success($request);
+
+            return redirect()->route('payment.success');
+        } catch (\Exception $e) {
+            return back()->withErrors('Erreur Stripe : ' . $e->getMessage());
+        }
     }
 
     private function getCartItems()
     {
-        // Simulation des articles du panier. Adaptez ceci à votre logique réelle.
-        return [
-            (object)['name' => 'Daring Greatly', 'quantity' => 2, 'price' => 19.99],
-        ];
+        return CartItem::where('user_id', auth()->id())->get();
     }
 }

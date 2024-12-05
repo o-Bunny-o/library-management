@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbe2b24b693305e9464382579619daf28
+class ComposerStaticInit64b5a720463a778a9721462a47a8f8a1
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -474,8 +474,8 @@ class ComposerStaticInitbe2b24b693305e9464382579619daf28
         ),
         'Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/php-http/message-factory/src',
-            1 => __DIR__ . '/..' . '/php-http/message/src',
+            0 => __DIR__ . '/..' . '/php-http/message/src',
+            1 => __DIR__ . '/..' . '/php-http/message-factory/src',
         ),
         'Http\\Discovery\\' => 
         array (
@@ -612,9 +612,11 @@ class ComposerStaticInitbe2b24b693305e9464382579619daf28
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FavoriteController' => __DIR__ . '/../..' . '/app/Http/Controllers/FavoriteController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\ReviewController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReviewController.php',
         'App\\Http\\Controllers\\SearchController' => __DIR__ . '/../..' . '/app/Http/Controllers/SearchController.php',
+        'App\\Http\\Controllers\\StripePaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/StripePaymentController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AdminMiddleware' => __DIR__ . '/../..' . '/app/Http/Middleware/AdminMiddleware.php',
@@ -629,6 +631,9 @@ class ComposerStaticInitbe2b24b693305e9464382579619daf28
         'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\Favorite' => __DIR__ . '/../..' . '/app/Models/Favorite.php',
         'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',
+        'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
+        'App\\Models\\OrderItem' => __DIR__ . '/../..' . '/app/Models/OrderItem.php',
+        'App\\Models\\Payment' => __DIR__ . '/../..' . '/app/Models/Payment.php',
         'App\\Models\\Review' => __DIR__ . '/../..' . '/app/Models/Review.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Output\\Concerns\\InteractsWithSymbols' => __DIR__ . '/..' . '/laravel/pint/app/Output/Concerns/InteractsWithSymbols.php',
@@ -7530,10 +7535,10 @@ class ComposerStaticInitbe2b24b693305e9464382579619daf28
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbe2b24b693305e9464382579619daf28::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbe2b24b693305e9464382579619daf28::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitbe2b24b693305e9464382579619daf28::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitbe2b24b693305e9464382579619daf28::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64b5a720463a778a9721462a47a8f8a1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64b5a720463a778a9721462a47a8f8a1::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit64b5a720463a778a9721462a47a8f8a1::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit64b5a720463a778a9721462a47a8f8a1::$classMap;
 
         }, null, ClassLoader::class);
     }
