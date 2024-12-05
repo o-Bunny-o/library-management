@@ -13,7 +13,7 @@
         "omnipay/common": "^3.3",
         "omnipay/paypal": "^3.0",
 
-        "paypal/rest-api-sdk-php": "^1.6",
+      
 
         "php-http/guzzle7-adapter": "^1.1",
         "stripe/stripe-php": "^16.3"
