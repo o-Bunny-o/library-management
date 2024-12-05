@@ -107,7 +107,7 @@
 }
 
 /*
-! tailwindcss v3.4.15 | MIT License | https://tailwindcss.com
+! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com
 */
 
 /*
@@ -154,7 +154,7 @@ html,
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Gill Sans, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   /* 4 */
   font-feature-settings: normal;
   /* 5 */
@@ -795,6 +795,14 @@ select {
   border-width: 0;
 }
 
+.visible {
+  visibility: visible;
+}
+
+.static {
+  position: static;
+}
+
 .fixed {
   position: fixed;
 }
@@ -805,6 +813,10 @@ select {
 
 .relative {
   position: relative;
+}
+
+.sticky {
+  position: sticky;
 }
 
 .right-0 {
@@ -832,6 +844,11 @@ select {
   margin-right: 1.25rem;
 }
 
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -840,11 +857,6 @@ select {
 .my-3 {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
-}
-
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 
 .-ml-px {
@@ -873,10 +885,6 @@ select {
 
 .mb-3 {
   margin-bottom: 0.75rem;
-}
-
-.mb-4 {
-  margin-bottom: 1rem;
 }
 
 .mb-6 {
@@ -935,6 +943,14 @@ select {
   margin-top: 2rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mb-20 {
+  margin-bottom: 5rem;
+}
+
 .block {
   display: block;
 }
@@ -975,16 +991,16 @@ select {
   height: 1rem;
 }
 
-.h-48 {
-  height: 12rem;
-}
-
 .h-5 {
   height: 1.25rem;
 }
 
 .h-6 {
   height: 1.5rem;
+}
+
+.h-60 {
+  height: 15rem;
 }
 
 .h-8 {
@@ -997,6 +1013,10 @@ select {
 
 .h-\[35\.5rem\] {
   height: 35.5rem;
+}
+
+.h-auto {
+  height: auto;
 }
 
 .max-h-32 {
@@ -1083,12 +1103,20 @@ select {
   transform-origin: top right;
 }
 
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .cursor-default {
   cursor: default;
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.resize {
+  resize: both;
 }
 
 .grid-cols-1 {
@@ -1247,6 +1275,11 @@ select {
   border-left-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
+.bg-accent-color {
+  --tw-bg-opacity: 1;
+  background-color: rgb(206 91 97 / var(--tw-bg-opacity, 1));
+}
+
 .bg-blue-500 {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
@@ -1284,11 +1317,6 @@ select {
   fill: #ef4444;
 }
 
-.object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
 .p-0 {
   padding: 0px;
 }
@@ -1307,6 +1335,11 @@ select {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .px-2 {
@@ -1359,6 +1392,10 @@ select {
   padding-bottom: 1rem;
 }
 
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
+
 .pb-12 {
   padding-bottom: 3rem;
 }
@@ -1373,6 +1410,18 @@ select {
 
 .pt-8 {
   padding-top: 2rem;
+}
+
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
+.pb-16 {
+  padding-bottom: 4rem;
 }
 
 .text-left {
@@ -1396,7 +1445,7 @@ select {
 }
 
 .font-sans {
-  font-family: Figtree, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: Gill Sans, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 .text-2xl {
@@ -1526,6 +1575,11 @@ select {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.text-accent-color {
+  --tw-text-opacity: 1;
+  color: rgb(206 91 97 / var(--tw-text-opacity, 1));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1572,6 +1626,16 @@ select {
 
 .ring-gray-900\/5 {
   --tw-ring-color: rgb(17 24 39 / 0.05);
+}
+
+.blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.invert {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .filter {
@@ -1989,30 +2053,114 @@ footer {
   }
 }
 
-/* Customize Swiper navigation arrows */
+/* Ensure Swiper container does not occupy full viewport height */
+
+.swiper-container {
+  height: auto !important;
+  position: relative !important;
+}
+
+/* Ensure Swiper wrapper and slides do not stretch */
+
+.swiper-wrapper,
+.swiper-slide {
+  height: auto !important;
+}
+
+/* Reset any full-page positioning */
+
+.swiper-container,
+.swiper-wrapper,
+.swiper-slide {
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+}
+
+/* Prevent Swiper from positioning outside of its parent */
+
+.swiper-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* carousel's width */
+
+.carousel-wrapper {
+  max-width: 1200px;
+  /* Adjust as needed */
+  margin: 0 auto;
+}
 
 .swiper-button-next,
 .swiper-button-prev {
-  --tw-text-opacity: 1;
-  color: rgb(59 130 246 / var(--tw-text-opacity, 1));
+  color: #069180;
+  width: 44px;
+  height: 44px;
 }
+
+/* On hover */
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-  --tw-text-opacity: 1;
-  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+  color: #fa6f76;
 }
 
-/* Customize Swiper pagination bullets */
+/* Optional: Adjust arrow positions */
+
+.swiper-button-next,
+.swiper-button-prev {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.swiper-pagination {
+  position: relative;
+}
 
 .swiper-pagination-bullet {
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
+  background-color: #d3d3d3;
 }
 
 .swiper-pagination-bullet-active {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+  background-color: #CE5B61;
+}
+
+/* Override Swiper CSS variables for navigation colors */
+
+.swiper-container {
+  --swiper-navigation-color: #069180;
+  --swiper-navigation-size: 44px;
+}
+
+.book-title {
+  min-height: 3rem;
+}
+
+.book-description {
+  min-height: 4rem;
+  overflow: hidden;
+}
+
+.book-button {
+  align-self: flex-start;
+  background-color: #069180;
+  color: var(--input-bg);
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.book-button:hover {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .default\:col-span-full:default {

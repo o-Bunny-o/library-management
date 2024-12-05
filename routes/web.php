@@ -19,6 +19,7 @@ use App\Http\Controllers\HomeController;
 Auth::routes();
 
 //testing a real home
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 //  book list
