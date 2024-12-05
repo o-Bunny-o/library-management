@@ -15,6 +15,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StripeController;
+use App\Http\Controllers\OrderController;
+
 
 Auth::routes();
 
@@ -73,11 +76,10 @@ Route::post('/panier', [CartController::class, 'store'])->name('cart.store');
 Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-// Middleware Test
-Route::get('/middleware-test', function () {
-    return 'Test Middleware OK';
-})->middleware(['auth', 'admin']);
+// stripe
 
-Route::get('/middleware-test', function () {
-    return 'Middleware works!';
-})->middleware(['auth', 'admin']);
+Route::get('/stripe/payment', [StripeController::class, 'showPaymentForm'])->name('stripe.payment');
+Route::post('/stripe/process-payment', [StripeController::class, 'processPayment'])->name('stripe.processPayment');
+
+// orders
+Route::get('/purchase-history', [OrderController::class, 'userPurchaseHistory'])->name('purchase.history')->middleware('auth');
