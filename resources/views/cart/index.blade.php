@@ -5,11 +5,13 @@
 
 {{-- Success or Error Messages --}}
 @if(session('success'))
-    <div style="color: green;">{{ session('success') }}</div>
+    <div class="bg-green-100 border border-green-400 text-green-700 p-4 mb-4">
+        {{ session('success') }}
+    </div>
 @endif
 
 @if($errors->any())
-    <div style="color: red;">
+    <div class="bg-red-100 border border-red-400 text-red-700 p-4 mb-4">
         @foreach($errors->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
@@ -18,8 +20,9 @@
 
 {{-- Check if the cart is empty --}}
 @if($cartItems->isEmpty())
-    <p>Votre panier est vide.</p>
+    <p class="text-center">Votre panier est vide.</p>
 @else
+
     <table>
         <thead>
             <tr>
@@ -78,6 +81,7 @@
         </div>
         <button type="button" id="stripePayButton" class="btn btn-primary">Payer avec Stripe</button>
     </form>
+
 @endif
 
 <script src="https://js.stripe.com/v3/"></script>

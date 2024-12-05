@@ -35,7 +35,7 @@ body::before {
 }
 
 .bg-page {
-    background-image: url('/images/bg.svg');
+    background-image: url('/public/images/bg.svg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
