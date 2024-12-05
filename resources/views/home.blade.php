@@ -4,15 +4,15 @@
 
 @section('content')
 
-<h1 class="text-2xl font-bold text-center mb-6">À Propos de Nous</h1>
-<p class="text-md px-10 pb-10">
+<h1 class="text-2xl font-bold text-center mx-8 mb-6">À Propos de Nous</h1>
+<p class="text-md  mb-4 mx-14">
     Bienvenue à La Fleur des Livres ! Nous sommes une équipe passionnée dédiée à vous offrir la meilleure sélection de livres à travers divers genres.
 </p>
-
+<h1 class="text-2xl font-bold text-center mx-8 mb-8">Nos nouveautés</h1>
 <!-- Swiper Carousel -->
-<div class="max-w-7xl mx-8 px-4 overflow-hidden">
+<div class="max-w-7xl mx-12 px-4 overflow-hidden">
     <div class="swiper-container h-auto">
-        <div class="swiper-wrapper pb-16 text-accent-color">
+        <div class="swiper-wrapper pb-10 text-accent-color">
             @foreach($books as $book)
                 <div class="swiper-slide h-auto">
                     <div class="bg-white shadow-md rounded-lg overflow-hidden">
@@ -27,7 +27,7 @@
             @endforeach
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination mt-10"></div>
+        <div class="swiper-pagination"></div>
         <!-- Add Navigation -->
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>

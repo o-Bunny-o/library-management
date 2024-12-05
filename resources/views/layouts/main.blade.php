@@ -41,11 +41,11 @@
                 <a href="{{ route('search.index') }}" title="Chercher">
                     <i class="fas fa-search"></i>
                 </a>
+                <!-- auth links -->
+                @if (Auth::check())
                 <a href="{{ route('cart.index') }}" title="Panier">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <!-- auth links -->
-                @if (Auth::check())
                 <a href="{{ route('profile') }}" title="Profile">
                 <i class="fas fa-user"></i>
                 </a>
@@ -76,11 +76,11 @@
                 <a href="{{ route('search.index') }}" title="Chercher">
                 CHERCHER
                 </a>
-                <a href="{{ route('cart.index') }}" title="Panier">
-                PANIER
-                </a>
                 <!-- auth links -->
                 @if (Auth::check())
+                                <a href="{{ route('cart.index') }}" title="Panier">
+                PANIER
+                </a>
                 <a href="{{ route('profile') }}" title="Profile">
                 {{ Auth::user()->name }}
                 </a>
@@ -100,7 +100,7 @@
     </header>
 
     <!-- main content -->
-    <main>
+    <main class="bg-transparent">
         @yield('content')
     </main>
 

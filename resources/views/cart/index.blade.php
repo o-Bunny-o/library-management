@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<h1>Mon panier</h1>
+<h1 class="text-2xl font-bold text-center mx-8 mb-6">Mon panier</h1>
 
 <!-- Affichage des messages de succès ou d'erreur -->
 @if(session('success'))
