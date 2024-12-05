@@ -12,7 +12,7 @@
         <p><strong>Nom :</strong> {{ Auth::user()->name }}</p>
         <p><strong>Email :</strong> {{ Auth::user()->email }}</p>
         
-        <p><strong>À propos de moi :</strong></p>
+        <p><strong>À propos de moi :</strong>{{ Auth::user()->about }}</p>
         <p>Bienvenue sur votre page de profil. Ici, vous pouvez voir vos informations personnelles et les mettre à jour si nécessaire.</p>
 
         <p><strong>Inscrit le :</strong> {{ Auth::user()->created_at->format('d M Y') }}</p>

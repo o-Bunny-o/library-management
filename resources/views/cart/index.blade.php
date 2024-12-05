@@ -69,19 +69,31 @@
     </table>
 
     {{-- Options de paiement --}}
-    <h2 class="mt-6">Choisissez votre méthode de paiement :</h2>
-    <a href="{{ route('payment.payWithPayPal') }}" class="btn btn-success mt-2">Payer avec PayPal</a>
+<h2 class="mt-6 text-xl font-semibold">Choisissez votre méthode de paiement :</h2>
 
-    <form id="stripe-payment-form" action="{{ route('payment.payWithStripe') }}" method="POST" class="mt-4">
-        @csrf
-        <input type="hidden" name="amount" value="{{ $total }}">
-        <input type="hidden" id="stripePaymentMethod" name="stripePaymentMethod">
-        
-        <div id="card-element" class="my-4">
-            <!-- Stripe.js Card Element sera monté ici -->
-        </div>
-        <button type="button" id="stripePayButton" class="btn btn-primary">Payer avec Stripe</button>
-    </form>
+{{-- Bouton pour PayPal --}}
+<form method="POST" action="{{ route('payment.payWithPayPal') }}" class="mt-4">
+    @csrf
+    <input type="hidden" name="amount" value="{{ $cartItems->sum(fn($item) => $item->quantity * $item->price) }}">
+    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Payer avec PayPal
+    </button>
+</form>
+
+{{-- Formulaire pour Stripe --}}
+<form id="stripe-payment-form" action="{{ route('payment.payWithStripe') }}" method="POST" class="mt-4">
+    @csrf
+    {{-- Passer le montant total au backend --}}
+    <input type="hidden" name="amount" value="{{ $cartItems->sum(fn($item) => $item->quantity * $item->price) }}">
+    <input type="hidden" id="stripePaymentMethod" name="stripePaymentMethod">
+
+    {{-- Champ pour les informations de carte Stripe --}}
+    <div id="card-element" class="border rounded p-4 my-4"></div>
+
+    <button type="button" id="stripePayButton" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Payer avec Stripe
+    </button>
+</form>
 
 @endif
 
@@ -94,19 +106,39 @@
     // Monter l'élément de carte
     cardElement.mount('#card-element');
 
-    // Gérer la soumission du formulaire
     document.getElementById('stripePayButton').addEventListener('click', async function () {
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: cardElement,
+    });
+
+    if (error) {
+        alert(error.message);
+    } else {
+        document.getElementById('stripePaymentMethod').value = paymentMethod.id;
+
+        // Submit the form to the backend for processing
+        const response = await fetch("{{ route('payment.payWithStripe') }}", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+            },
+            body: JSON.stringify({
+                paymentMethodId: paymentMethod.id,
+                amount: document.querySelector('input[name="amount"]').value
+            })
         });
 
-        if (error) {
-            alert(error.message);
+        if (response.ok) {
+            // Redirect to success page after backend processing
+            window.location.href = "{{ route('payment.success') }}";
         } else {
-            document.getElementById('stripePaymentMethod').value = paymentMethod.id;
-            document.getElementById('stripe-payment-form').submit();
+            const result = await response.json();
+            alert(result.error || 'Une erreur est survenue lors du traitement du paiement.');
         }
-    });
+    }
+});
+
 </script>
 @endsection

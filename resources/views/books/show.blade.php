@@ -5,7 +5,6 @@
 @section('content')
 <div class="form-container">
     <h1 class="text-3xl font-bold">{{ $book->title }}</h1>
-    
     <p><strong>Auteur :</strong> {{ $book->author }}</p>
     <p><strong>Année :</strong> {{ $book->year }}</p>
     <p><strong>Genre :</strong> {{ $book->genre }}</p>

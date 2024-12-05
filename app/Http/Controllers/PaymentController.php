@@ -23,6 +23,37 @@ class PaymentController extends Controller
         $this->paypalGateway->setTestMode(true); // TRUE pour Sandbox, FALSE en production
     }
 
+    public function payWithPayPal (Request $request)
+{
+    // Validation de l'entrée (optionnel, en fonction de vos besoins)
+    $request->validate(['amount' => 'required|numeric|min:0.01']);
+
+    try {
+        // Récupérer les items du panier
+        $cartItems = $this->getCartItems();
+        $totalAmount = $cartItems->sum(fn($item) => $item->quantity * $item->price);
+
+        $response = $this->paypalGateway->purchase([
+            'amount' => number_format($totalAmount, 2, '.', ''), // Formater correctement le montant
+            'currency' => env('PAYPAL_CURRENCY', 'USD'),
+            'returnUrl' => route('payment.success'), // URL de retour en cas de succès
+            'cancelUrl' => route('payment.error'),   // URL en cas d'annulation
+        ])->send();
+
+        if ($response->isRedirect()) {
+            // Redirection vers PayPal
+            return redirect()->away($response->getRedirectUrl());
+        } else {
+            // Échec de la tentative
+            return back()->withErrors('Erreur PayPal : ' . $response->getMessage());
+        }
+    } catch (\Exception $e) {
+        return back()->withErrors('Erreur de paiement PayPal : ' . $e->getMessage());
+    }
+}
+
+    
+
     public function success(Request $request)
     {
         $userId = auth()->id(); // ID de l'utilisateur connecté

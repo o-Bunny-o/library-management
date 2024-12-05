@@ -2,19 +2,20 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AdminMiddleware
 {
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        // Check if the user is logged in and has an admin role
-        if (Auth::check() && Auth::user()->role === 'admin') {
-            // Allow the request to proceed
+        // Check if the user is logged in and is an admin
+        if (auth()->check() && auth()->user()->isAdmin()) {
             return $next($request);
         }
 
-        // Redirect non-admins to the home page with an error
-        return redirect('/')->with('error', 'Unauthorized access');
+        // Redirect non-admin users with an error message
+        return redirect()->route('home')->with('error', 'Accès réservé aux administrateurs.');
     }
 }
+
+

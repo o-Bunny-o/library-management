@@ -49,4 +49,43 @@ class ContactController extends Controller
       // Passer les messages à la vue pour les afficher
       return view('contact.messages', compact('messages'));  // Affiche tous les messages envoyés
   }
+
+  public function adminMessages()
+  {
+      $this->authorizeAccess();
+  
+      $messages = Message::latest()->get();
+      return view('admin.messages.index', compact('messages'));
+  }
+  
+  public function markAsRead(Message $message)
+  {
+      $this->authorizeAccess();
+  
+      $message->update(['is_read' => true]);
+      return back()->with('success', 'Message marqué comme lu.');
+  }
+  
+  public function markAsUnread(Message $message)
+  {
+      $this->authorizeAccess();
+  
+      $message->update(['is_read' => false]);
+      return back()->with('success', 'Message marqué comme non lu.');
+  }
+  
+  public function destroy(Message $message)
+  {
+      $this->authorizeAccess();
+  
+      $message->delete();
+      return back()->with('success', 'Message supprimé avec succès.');
+  }
+  
+  private function authorizeAccess()
+  {
+      if (!auth()->user()->isAdmin()) {
+          abort(403, 'Accès non autorisé.');
+      }
+  }
 }

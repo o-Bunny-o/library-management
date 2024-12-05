@@ -44,6 +44,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/books', [BookController::class, 'store'])->name('books.store');
     Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.destroy');
 });
+
+
+
  
 // Contact routes
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
@@ -72,9 +75,20 @@ Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.upda
 Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
 
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/messages', function () {
+        if (auth()->check() && auth()->user()->is_admin) {
+            return view('admin.messages');
+        }
+        return redirect('/')->with('error', 'Access restricted to administrators.');
+    });
+});
 
- 
-
+Route::get('/admin/messages', [ContactController::class, 'adminMessages'])->name('admin.messages');
+    Route::patch('/admin/messages/{message}/read', [ContactController::class, 'markAsRead'])->name('messages.markRead');
+    Route::patch('/admin/messages/{message}/unread', [ContactController::class, 'markAsUnread'])->name('messages.markUnread');
+    Route::delete('/admin/messages/{message}', [ContactController::class, 'destroy'])->name('messages.destroy');
+    
 // Payment routes for PayPal
 Route::get('/pay', [PaymentController::class, 'payWithPayPal'])->name('payment.payWithPayPal');
 Route::get('/payment-success', [PaymentController::class, 'success'])->name('payment.success');
@@ -86,7 +100,7 @@ Route::post('/stripe/pay', [PaymentController::class, 'payWithStripe'])->name('p
 
 // Orders 
 Route::get('/purchase-history', [OrderController::class, 'userPurchaseHistory'])->name('purchase.history')->middleware('auth');
-Route::get('/admin/transactions', [OrderController::class, 'adminTransactions'])->name('admin.transactions')->middleware('auth', 'isAdmin');
+Route::get('/admin/transactions', [OrderController::class, 'adminTransactions'])->name('admin.transactions')->middleware('auth');
 
 
  
