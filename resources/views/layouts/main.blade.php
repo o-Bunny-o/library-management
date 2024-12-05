@@ -18,9 +18,9 @@
 
             <!-- left nav -->
             <nav class="nav-links hidden lg:flex">
-                <a href="{{ route('home') }}">ACCUEIL</a>
-                <a href="{{ route('books.index') }}">LIVRES</a>
-                <a href="{{ route('books.newArrivals') }}">NOUVEAUTÉS</a>
+                <a href="{{ route('home') }}" title="Bienvenu(e)!">ACCUEIL</a>
+                <a href="{{ route('books.index') }}" title="Voir la liste des livres">LIVRES</a>
+                <a href="{{ route('books.newArrivals') }}" title="Voir nos nouveautés">NOUVEAUTÉS</a>
             </nav>
 
             <!-- logo -->
@@ -30,23 +30,27 @@
 
             <!-- right nav -->
             <nav class="nav-links hidden lg:flex">
-                <a href="{{ route('contact.index') }}">CONTACT</a>
+                <a href="{{ route('contact.index') }}" title="Contactez-nous">
+                    <i class="fas fa-phone"></i>
+                </a>
                 @auth
-                    <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                    <a href="{{ route('contact.messages') }}" title="Voir les messages">
+                        <i class="fas fa-envelope"></i>
+                    </a>
                 @endauth
                 <a href="{{ route('search.index') }}" title="Chercher">
                     <i class="fas fa-search"></i>
                 </a>
+                <!-- auth links -->
+                @if (Auth::check())
                 <a href="{{ route('cart.index') }}" title="Panier">
                     <i class="fas fa-shopping-cart"></i>
                 </a>
-                <!-- auth links -->
-                @if (Auth::check())
-                    <a href="{{ route('profile') }}" title="Profile">
-                        {{ Auth::user()->name }}
-                    </a>
+                <a href="{{ route('profile') }}" title="Profile">
+                <i class="fas fa-user"></i>
+                </a>
                     <a href="{{ route('logout') }}"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-button">
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="logout-button" title="Déconnexion">
                         LOGOUT
                     </a>
                     <!-- logout form (hidden) -->
@@ -54,8 +58,8 @@
                         @csrf
                     </form>
                 @else
-                    <a href="{{ route('login') }}">LOGIN</a>
-                    <a href="{{ route('register') }}">REGISTER</a>
+                    <a href="{{ route('login') }}" title="Connexion">LOGIN</a>
+                    <a href="{{ route('register') }}" title="S'inscrire">SIGNUP</a>
                 @endif
             </nav>
 
@@ -65,20 +69,21 @@
                 <a href="{{ route('books.index') }}">LIVRES</a>
                 <a href="{{ route('books.newArrivals') }}">NOUVEAUTÉS</a>
                 <a href="{{ route('contact.index') }}">CONTACT</a>
+
                 @auth
-                    <a href="{{ route('contact.messages') }}">MESSAGES</a>
+                    <a href="{{ route('contact.messages') }}">MESSAGES</a>                    </a>
                 @endauth
                 <a href="{{ route('search.index') }}" title="Chercher">
-                    <i class="fas fa-search"></i>
-                </a>
-                <a href="{{ route('cart.index') }}" title="Panier">
-                    <i class="fas fa-shopping-cart"></i>
+                CHERCHER
                 </a>
                 <!-- auth links -->
                 @if (Auth::check())
-                    <a href="{{ route('profile') }}" title="Profile">
-                        {{ Auth::user()->name }}
-                    </a>
+                                <a href="{{ route('cart.index') }}" title="Panier">
+                PANIER
+                </a>
+                <a href="{{ route('profile') }}" title="Profile">
+                {{ Auth::user()->name }}
+                </a>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form-mobile').submit();" class="logout-button">
                         LOGOUT
@@ -87,15 +92,15 @@
                         @csrf
                     </form>
                 @else
-                    <a href="{{ route('login') }}">LOGIN</a>
-                    <a href="{{ route('register') }}">REGISTER</a>
+                    <a href="{{ route('login') }}" title="Se connecter">LOGIN</a>
+                    <a href="{{ route('register') }}" title="S'inscrire">SIGNUP</a>
                 @endif
             </nav>
         </div>
     </header>
 
     <!-- main content -->
-    <main>
+    <main class="bg-transparent">
         @yield('content')
     </main>
 

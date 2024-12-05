@@ -24,7 +24,10 @@ use App\Http\Controllers\Auth\{
 // Authentication routes
 Auth::routes();
 
-// Home
+
+//testing a real home
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // Book routes

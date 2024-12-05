@@ -1,24 +1,21 @@
 // resources/js/app.js
 
-// Import Swiper
+// Import Swiper core and required modules
 import Swiper from 'swiper';
-
-// Import Swiper modules
-import Navigation from 'swiper/modules/navigation';
-import Pagination from 'swiper/modules/pagination';
+import { Navigation, Pagination } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-// Initialize Swiper after the DOM content is loaded
+// Initialize Swiper
 document.addEventListener('DOMContentLoaded', () => {
     const swiper = new Swiper('.swiper-container', {
         modules: [Navigation, Pagination],
         loop: true,
-        slidesPerView: 1,
         spaceBetween: 20,
+        autoHeight: false,
 
         // Enable pagination
         pagination: {
@@ -34,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Responsive breakpoints
         breakpoints: {
+            0: {
+                slidesPerView: 1, // 1 slide on small screens
+            },
             640: {
                 slidesPerView: 1,
             },

@@ -377,17 +377,104 @@ footer {
     }
 }
 
-/* Customize Swiper navigation arrows */
-.swiper-button-next,
-.swiper-button-prev {
-    @apply text-blue-500 hover:text-blue-700;
+/* Ensure Swiper container does not occupy full viewport height */
+.swiper-container {
+    height: auto !important;
+    position: relative !important;
 }
 
-/* Customize Swiper pagination bullets */
+/* Ensure Swiper wrapper and slides do not stretch */
+.swiper-wrapper,
+.swiper-slide {
+    height: auto !important;
+}
+
+/* Reset any full-page positioning */
+.swiper-container,
+.swiper-wrapper,
+.swiper-slide {
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Prevent Swiper from positioning outside of its parent */
+.swiper-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* carousel's width */
+.carousel-wrapper {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: #069180; 
+    width: 44px;
+    height: 44px;
+}
+
+/* On hover */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #fa6f76; 
+}
+
+/* Optional: Adjust arrow positions */
+.swiper-button-next,
+.swiper-button-prev {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.swiper-pagination {
+    position: relative; 
+}
+
 .swiper-pagination-bullet {
-    @apply bg-gray-300;
+    background-color: #d3d3d3; 
 }
 
 .swiper-pagination-bullet-active {
-    @apply bg-blue-500;
+    background-color: #CE5B61;
+}
+
+/* Override Swiper CSS variables for navigation colors */
+.swiper-container {
+    --swiper-navigation-color: #069180; 
+    --swiper-navigation-size: 44px;      
+}
+
+.book-title {
+    min-height: 3rem; 
+}
+
+.book-description {
+    min-height: 4rem; 
+    overflow: hidden; 
+}
+
+.book-button {
+    align-self: flex-start; 
+    background-color: #069180; 
+    color: var(--input-bg); 
+    padding: 8px 16px; 
+    border-radius: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: var(--accent-color); 
+    color: white; 
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
 }

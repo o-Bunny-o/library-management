@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Book; // Make sure to include the Book model
+use App\Models\Book; // Make sure to import your Book model
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        $books = Book::all(); // Fetch books to display in the carousel
+        // Fetch the latest 5 books
+        $books = Book::latest()->take(5)->get();
         return view('home', compact('books'));
     }
 }
