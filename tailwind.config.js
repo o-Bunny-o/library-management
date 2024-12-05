@@ -24,6 +24,8 @@ export default {
                 'button-hover-bg': '#CE5B61',
                 'border-color': '#d3d3d3',
                 'highlight': '#ffe5e0',
+                'greeny': "#069180",
+                'greenyLight' : "#18ac9a",
             },
             fontFamily: {
                 sans: ['Gill Sans', ...defaultTheme.fontFamily.sans],

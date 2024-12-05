@@ -70,23 +70,17 @@ Route::post('/panier', [CartController::class, 'store'])->name('cart.store');
 Route::put('/panier/{item}', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/panier/{item}', [CartController::class, 'destroy'])->name('cart.destroy');
 
-<<<<<<< HEAD
-// Payment routes
-Route::get('/pay', [PaymentController::class, 'pay'])->name('payment.pay');
-Route::get('/payment-success', [PaymentController::class, 'success'])->name('payment.success');
-Route::get('/payment-error', [PaymentController::class, 'error'])->name('payment.error');
-Route::get('/test-paypal', [PaymentController::class, 'test'])->name('paypal.test');
-
-// Middleware testing routes (for debugging or confirmation)
-Route::get('/middleware-test', function () {
-    return 'Test Middleware OK';
-})->middleware(['auth', 'admin']);
-=======
 // stripe
-
+Route::post('/payment/stripe', [PaymentController::class, 'processStripe'])->name('payment.stripe');
 Route::get('/stripe/payment', [StripeController::class, 'showPaymentForm'])->name('stripe.payment');
 Route::post('/stripe/process-payment', [StripeController::class, 'processPayment'])->name('stripe.processPayment');
 
 // orders
 Route::get('/purchase-history', [OrderController::class, 'userPurchaseHistory'])->name('purchase.history')->middleware('auth');
->>>>>>> cd99ddb32ea6a923ec8ba1ad00c2c6f4c15b197f
+
+// pay
+Route::get('/pay', [PaymentController::class, 'pay'])->name('payment.pay');
+Route::get('/payment-success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment-error', [PaymentController::class, 'error'])->name('payment.error');
+Route::post('/payment/paypal', [PaymentController::class, 'processPaypal'])->name('payment.paypal');
+

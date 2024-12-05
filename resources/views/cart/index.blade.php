@@ -5,11 +5,13 @@
 
 {{-- Messages de succès ou d'erreur --}}
 @if(session('success'))
-    <div style="color: green;">{{ session('success') }}</div>
+    <div class="bg-green-100 border border-green-400 text-green-700 p-4 mb-4">
+        {{ session('success') }}
+    </div>
 @endif
 
 @if($errors->any())
-    <div style="color: red;">
+    <div class="bg-red-100 border border-red-400 text-red-700 p-4 mb-4">
         @foreach($errors->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
@@ -18,54 +20,72 @@
 
 {{-- Vérification si le panier est vide --}}
 @if($cartItems->isEmpty())
-    <p>Votre panier est vide.</p>
+    <p class="text-center">Votre panier est vide.</p>
 @else
-    <table>
-        <thead>
-            <tr>
-                <th>Article</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{-- Parcourir les articles du panier --}}
-            @foreach($cartItems as $item)
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border">
+            <thead>
                 <tr>
-                    <td>{{ $item->book->title }}</td>
-                    <td>{{ $item->quantity }}</td>
-                    <td>{{ number_format($item->price, 2, ',', ' ') }} $</td>
-                    <td>{{ number_format($item->quantity * $item->price, 2, ',', ' ') }} $</td>
-                    <td>
-                        {{-- Formulaire pour mettre à jour la quantité --}}
-                        <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('PUT')
-                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
-                            <button type="submit">Mettre à jour</button>
-                        </form>
-
-                        {{-- Formulaire pour supprimer un article --}}
-                        <form action="{{ route('cart.destroy', $item->id) }}" method="POST" style="display: inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit">Supprimer</button>
-                        </form>
-                    </td>
+                    <th class="py-2 px-4 border-b text-left">Article</th>
+                    <th class="py-2 px-4 border-b text-center">Quantité</th>
+                    <th class="py-2 px-4 border-b text-right">Prix</th>
+                    <th class="py-2 px-4 border-b text-right">Total</th>
+                    <th class="py-2 px-4 border-b text-center">Actions</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-
-    {{-- Afficher le sous-total et le total --}}
-    <div>
-        <p>Sous-total : {{ number_format($subtotal, 2, ',', ' ') }} $</p>
-        <p>Total : {{ number_format($total, 2, ',', ' ') }} $</p>
+            </thead>
+            <tbody>
+                {{-- Parcourir les articles du panier --}}
+                @foreach($cartItems as $item)
+                    <tr>
+                        <td class="py-2 px-4 border-b">
+                            {{ $item->book->title }}
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">
+                            {{-- Formulaire pour mettre à jour la quantité --}}
+                            <form action="{{ route('cart.update', $item->id) }}" method="POST" class="flex items-center justify-center">
+                                @csrf
+                                @method('PUT')
+                                <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" class="border rounded w-16 text-center">
+                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2">⟳</button>
+                            </form>
+                        </td>
+                        <td class="py-2 px-4 border-b text-right">
+                            {{ number_format($item->price, 2, ',', ' ') }} $
+                        </td>
+                        <td class="py-2 px-4 border-b text-right">
+                            {{ number_format($item->quantity * $item->price, 2, ',', ' ') }} $
+                        </td>
+                        <td class="py-2 px-4 border-b text-center">
+                            {{-- Formulaire pour supprimer un article --}}
+                            <form action="{{ route('cart.destroy', $item->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">🗑</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 
-    {{-- Bouton de paiement avec PayPal --}}
-    <a href="{{ route('payment.pay') }}" class="btn btn-success">Payer avec PayPal</a>
+    {{-- Afficher le sous-total, les taxes et le total --}}
+    <div class="mt-6 text-right">
+        <p class="mb-2"><strong>Sous-total :</strong> {{ number_format($subtotal, 2, ',', ' ') }} $</p>
+        {{-- Calculer les taxes --}}
+        @php
+            $taxRate = 0.15; // Par exemple, 15% de taxes
+            $taxes = $subtotal * $taxRate;
+            $grandTotal = $subtotal + $taxes;
+        @endphp
+        <p class="mb-2"><strong>Taxes (15%) :</strong> {{ number_format($taxes, 2, ',', ' ') }} $</p>
+        <p class="text-xl font-bold"><strong>Total :</strong> {{ number_format($grandTotal, 2, ',', ' ') }} $</p>
+    </div>
+
+    {{-- Boutons de paiement --}}
+    <div class="mt-6 flex justify-end">
+        <a href="{{ route('payment.paypal') }}" class="bg-blue-600 hover:bg-blue-700 hover:text-white text-white font-bold py-2 px-4 rounded mr-2">Payer avec PayPal</a>
+        <a href="{{ route('payment.stripe') }}" class="bg-greeny hover:bg-greenyLight hover:text-white text-white font-bold py-2 px-4 rounded">Payer avec Stripe</a>
+    </div>
 @endif
 @endsection
