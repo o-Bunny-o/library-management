@@ -3,78 +3,69 @@
 @section('content')
 <h1>Mon panier</h1>
 
-<!-- Affichage des messages de succès ou d'erreur -->
+{{-- Messages de succès ou d'erreur --}}
 @if(session('success'))
-    <div style="color: green; margin-bottom: 15px;">
-        {{ session('success') }}
-    </div>
+    <div style="color: green;">{{ session('success') }}</div>
 @endif
 
 @if($errors->any())
-    <div style="color: red; margin-bottom: 15px;">
+    <div style="color: red;">
         @foreach($errors->all() as $error)
             <p>{{ $error }}</p>
         @endforeach
     </div>
 @endif
 
-<!-- Vérification du panier -->
+{{-- Vérification si le panier est vide --}}
 @if($cartItems->isEmpty())
     <p>Votre panier est vide.</p>
 @else
-    <table class="table table-bordered">
-        <thead class="thead-dark">
+    <table>
+        <thead>
             <tr>
-                <th>Livre</th>
+                <th>Article</th>
                 <th>Quantité</th>
-                <th>Prix unitaire</th>
+                <th>Prix</th>
                 <th>Total</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
+            {{-- Parcourir les articles du panier --}}
             @foreach($cartItems as $item)
                 <tr>
                     <td>{{ $item->book->title }}</td>
-                    <td>
-                        <!-- Formulaire pour mettre à jour la quantité -->
-                        <form method="POST" action="{{ route('cart.update', $item->id) }}">
-                            @csrf
-                            @method('PUT')
-                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" max="99">
-                            <button class="btn btn-primary btn-sm" type="submit">Modifier</button>
-                        </form>
-                    </td>
+                    <td>{{ $item->quantity }}</td>
                     <td>{{ number_format($item->price, 2, ',', ' ') }} $</td>
                     <td>{{ number_format($item->quantity * $item->price, 2, ',', ' ') }} $</td>
                     <td>
-                        <!-- Formulaire pour supprimer un article -->
-                        <form method="POST" action="{{ route('cart.destroy', $item->id) }}">
+                        {{-- Formulaire pour mettre à jour la quantité --}}
+                        <form action="{{ route('cart.update', $item->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('PUT')
+                            <input type="number" name="quantity" value="{{ $item->quantity }}" min="1">
+                            <button type="submit">Mettre à jour</button>
+                        </form>
+
+                        {{-- Formulaire pour supprimer un article --}}
+                        <form action="{{ route('cart.destroy', $item->id) }}" method="POST" style="display: inline;">
                             @csrf
                             @method('DELETE')
-                            <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+                            <button type="submit">Supprimer</button>
                         </form>
                     </td>
                 </tr>
             @endforeach
-            <!-- Résumé des totaux -->
-            <tr>
-                <td colspan="3" style="text-align: right;"><strong>Sous-total :</strong></td>
-                <td colspan="2">{{ number_format($subtotal, 2, ',', ' ') }} $</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: right;"><strong>TPS (5%) :</strong></td>
-                <td colspan="2">{{ number_format($tps, 2, ',', ' ') }} $</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: right;"><strong>TVQ (9.975%) :</strong></td>
-                <td colspan="2">{{ number_format($tvq, 2, ',', ' ') }} $</td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: right;"><strong>Total général :</strong></td>
-                <td colspan="2"><strong>{{ number_format($total, 2, ',', ' ') }} $</strong></td>
-            </tr>
         </tbody>
     </table>
+
+    {{-- Afficher le sous-total et le total --}}
+    <div>
+        <p>Sous-total : {{ number_format($subtotal, 2, ',', ' ') }} $</p>
+        <p>Total : {{ number_format($total, 2, ',', ' ') }} $</p>
+    </div>
+
+    {{-- Bouton de paiement avec PayPal --}}
+    <a href="{{ route('payment.pay') }}" class="btn btn-success">Payer avec PayPal</a>
 @endif
 @endsection

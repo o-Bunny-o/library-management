@@ -8,27 +8,25 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
+    // Affiche les articles du panier
     public function index()
     {
         $cartItems = auth()->check()
             ? CartItem::where('user_id', auth()->id())->with('book')->get()
             : CartItem::where('session_id', session()->getId())->with('book')->get();
-    
-        // Calcul du total général (avant taxes)
+
+        // Calcul des totaux
         $subtotal = $cartItems->sum(fn($item) => $item->quantity * $item->price);
-    
-        // Taux de taxes
         $tpsRate = 0.05; // TPS
         $tvqRate = 0.09975; // TVQ
-    
-        // Calcul des taxes
         $tps = $subtotal * $tpsRate;
         $tvq = $subtotal * $tvqRate;
         $total = $subtotal + $tps + $tvq;
-    
+
         return view('cart.index', compact('cartItems', 'subtotal', 'tps', 'tvq', 'total'));
     }
-    
+
+    // Ajoute un article au panier
     public function store(Request $request)
     {
         $book = Book::findOrFail($request->input('book_id'));
@@ -40,10 +38,7 @@ class CartController extends Controller
             ]);
         }
 
-        $data = [
-            'quantity' => $quantity,
-            'price' => $book->price,
-        ];
+        $data = ['quantity' => $quantity, 'price' => $book->price];
 
         if (auth()->check()) {
             CartItem::updateOrCreate(['user_id' => auth()->id(), 'book_id' => $book->id], $data);
@@ -54,35 +49,32 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Article ajouté au panier.');
     }
 
+    // Met à jour la quantité d'un article dans le panier
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'quantity' => 'required|integer|min:1|max:99',
-        ]);
-    
+        $request->validate(['quantity' => 'required|integer|min:1|max:99']);
         $cartItem = CartItem::findOrFail($id);
-        $book = $cartItem->book; // Récupère les informations du livre associé
-    
-        // Vérification du stock
+        $book = $cartItem->book;
+
         if ($request->quantity > $book->stock) {
             return back()->withErrors([
                 'stock' => "Quantité demandée supérieure au stock disponible. Stock actuel : {$book->stock}.",
             ]);
         }
-    
-        // Mise à jour de la quantité
+
         $cartItem->update(['quantity' => $request->quantity]);
-    
+
         return redirect()->route('cart.index')->with('success', 'Quantité mise à jour avec succès !');
     }
-    
 
+    // Supprime un article du panier
     public function destroy($id)
     {
         CartItem::destroy($id);
         return redirect()->route('cart.index')->with('success', 'Article supprimé avec succès !');
     }
 
+    // Fusionne les paniers invité/utilisateur connecté
     public function mergeCarts()
     {
         if (!auth()->check()) return;
@@ -99,4 +91,35 @@ class CartController extends Controller
 
         CartItem::where('session_id', $sessionId)->delete();
     }
+
+    // Récupère les articles pour PayPal
+    public function getPayPalCart()
+    {
+        // Get cart items based on authentication
+        $cartItems = auth()->check()
+            ? CartItem::where('user_id', auth()->id())->with('book')->get()
+            : CartItem::where('session_id', session()->getId())->with('book')->get();
+    
+        if ($cartItems->isEmpty()) {
+            return null;
+        }
+    
+        // Calculate subtotal
+        $subtotal = $cartItems->sum(fn($item) => $item->quantity * $item->price);
+    
+        // Ensure books are loaded and valid
+        foreach ($cartItems as $item) {
+            if (!$item->book || empty($item->book->title)) {
+                \Log::error('Invalid book data in cart:', $item->toArray());
+                return null;
+            }
+        }
+    
+        return [
+            'cartItems' => $cartItems,
+            'subtotal' => round($subtotal, 2),
+        ];
+    }
+    
+    
 }
