@@ -46,7 +46,7 @@
                                 @csrf
                                 @method('PUT')
                                 <input type="number" name="quantity" value="{{ $item->quantity }}" min="1" class="border rounded w-16 text-center">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded ml-2">⟳</button>
+                                <button type="submit" class="bg-greeny hover:bg-accent-color text-white font-bold py-1 px-2 rounded ml-2">⟳</button>
                             </form>
                         </td>
                         <td class="py-2 px-4 border-b text-right">
