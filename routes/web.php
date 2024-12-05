@@ -13,7 +13,9 @@ use App\Http\Controllers\{
     UserController,
     CartController,
     HomeController,
-    PaymentController
+    PaymentController,
+    OrderController,
+
 };
 use App\Http\Controllers\Auth\{
     LoginController,
@@ -74,4 +76,10 @@ Route::get('/payment-error', [PaymentController::class, 'error'])->name('payment
  
 // Payment routes for Stripe
 Route::post('/stripe/pay', [PaymentController::class, 'payWithStripe'])->name('payment.payWithStripe');
+
+// Orders 
+Route::get('/purchase-history', [OrderController::class, 'userPurchaseHistory'])->name('purchase.history')->middleware('auth');
+Route::get('/admin/transactions', [OrderController::class, 'adminTransactions'])->name('admin.transactions')->middleware('auth', 'isAdmin');
+
+
  
