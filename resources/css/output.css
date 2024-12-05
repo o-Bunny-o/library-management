@@ -2274,6 +2274,11 @@ footer {
   background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-accent-color:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(206 91 97 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:text-gray-400:hover {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity, 1));

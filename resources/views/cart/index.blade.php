@@ -84,8 +84,8 @@
 
     {{-- Boutons de paiement --}}
     <div class="mt-6 flex justify-end">
-        <a href="{{ route('payment.paypal') }}" class="bg-blue-600 hover:bg-blue-700 hover:text-white text-white font-bold py-2 px-4 rounded mr-2">Payer avec PayPal</a>
-        <a href="{{ route('payment.stripe') }}" class="bg-greeny hover:bg-greenyLight hover:text-white text-white font-bold py-2 px-4 rounded">Payer avec Stripe</a>
+        <a href="{{ route('payment.payWithPayPal') }}" class="bg-blue-600 hover:bg-accent-color hover:text-white text-white font-bold py-2 px-4 rounded mr-2">Payer avec PayPal</a>
+        <a href="{{ route('payment.payWithStripe') }}" class="bg-greeny hover:bg-accent-color hover:text-white text-white font-bold py-2 px-4 rounded">Payer avec Stripe</a>
     </div>
 @endif
 @endsection
